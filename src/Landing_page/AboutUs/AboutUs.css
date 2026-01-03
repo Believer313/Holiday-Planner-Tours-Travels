@@ -1,0 +1,296 @@
+/* =====================================
+   ABOUT SECTION – PREMIUM LUXURIOUS
+===================================== */
+
+/* ------------------------
+   About Section Container
+------------------------ */
+.about {
+  width: 100vw;
+  padding: 100px 60px;
+  background: linear-gradient(135deg, rgba(34,139,34,0.05), rgba(0,48,63,0.05));
+  text-align: center;
+  font-family: 'Poppins', Arial, sans-serif;
+  color: #0B6623;
+  line-height: 1.9;
+}
+
+/* About Heading Wrapper */
+.about-heading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.about-heading h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #228B22;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* About Paragraph */
+.about p {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 30px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+
+.about p strong {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* ------------------------
+   Banner Styling
+------------------------ */
+.banner {
+  position: relative;
+  width: 100vw;
+  height: 550px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ------------------------
+   Our Team Section
+------------------------ */
+.our-team {
+  width: 100vw;
+  padding: 100px 60px;
+  text-align: center;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #F5FFF8;
+}
+
+.our-team h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #228B22;
+  margin-bottom: 40px;
+}
+
+.our-team p {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 60px;
+}
+
+/* Team Member Container */
+.team-member {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 70px;
+  gap: 40px;
+  background: #e6f2e6; /* soft leafy-like background */
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.team-member.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Team Photo */
+.team-photo {
+  flex: 1;
+  text-align: center;
+}
+
+.team-photo img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.team-photo img:hover {
+  transform: scale(1.08);
+}
+
+/* Crown / Icon (optional) */
+.team-photo .team-icon {
+  font-size: 120px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
+}
+
+.team-photo .team-icon:hover {
+  transform: scale(1.08);
+}
+
+/* Team Details */
+.team-details {
+  flex: 2;
+  text-align: left;
+  padding: 0 25px;
+}
+
+.team-details h2 {
+  font-size: 2.3rem;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.team-details h3 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.team-details p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* ------------------------
+   Mission Section
+------------------------ */
+.mission-container {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 100px 60px;
+  gap: 60px;
+  background: linear-gradient(135deg, rgba(0,48,63,0.05), rgba(34,139,34,0.05));
+}
+
+.mission-image {
+  flex: 0 0 45%; /* 45% width */
+}
+
+.mission-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  object-fit: cover;
+}
+
+.mission-text {
+  flex: 1;
+  color: #0B6623;
+  padding-left: 30px;
+}
+
+.mission-text h2 {
+  font-size: 3rem;
+  color: #228B22;
+  margin-bottom: 25px;
+}
+
+.mission-text p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* ------------------------
+   RESPONSIVE DESIGN
+------------------------ */
+@media (max-width: 1024px) {
+  .mission-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mission-text {
+    margin-top: 40px;
+    padding-left: 0;
+  }
+
+  .team-member {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .team-member.reverse {
+    flex-direction: column;
+  }
+
+  .team-photo img {
+    max-width: 220px;
+  }
+
+  .team-photo .team-icon {
+    width: 220px;
+    height: 220px;
+    font-size: 100px;
+  }
+
+  .team-details {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .about, .our-team, .mission-container {
+    padding: 60px 30px;
+  }
+
+  .about-heading h1,
+  .our-team h1,
+  .mission-text h2 {
+    font-size: 2.5rem;
+  }
+
+  .about p,
+  .our-team p,
+  .mission-text p {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    height: 250px;
+  }
+
+  .mission-image {
+    flex: 1 1 100%;
+  }
+
+  .mission-image img {
+    max-width: 100%;
+  }
+
+  .team-photo img,
+  .team-photo .team-icon {
+    max-width: 180px;
+    max-height: 180px;
+    font-size: 80px;
+  }
+}

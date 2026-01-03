@@ -1,0 +1,13 @@
+/* src/pages/AdminBookings.css */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.status.pending { background: #fef3c7; color: #92400e; }
+.status.confirmed { background: #d1fae5; color: #065f46; }
+.status.cancelled { background: #fee2e2; color: #991b1b; }
+
+.btn-confirm { background: #10b981; color: white; padding: 8px 16px; border: none; border-radius: 8px; margin: 0 4px; }
+.btn-cancel { background: #ef4444; color: white; padding: 8px 16px; border: none; border-radius: 8px; margin: 0 4px; }

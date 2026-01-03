@@ -1,0 +1,67 @@
+/* Album Section Styling */
+.album-container {
+width: 100%;
+max-width: 1200px; /* Limit the width for better readability */
+margin: 50px auto; /* Center the section and add vertical spacing */
+padding: 20px; /* Add padding inside the section */
+text-align: center; /* Center-align the heading */
+font-family: 'Poppins', sans-serif; /* Clean and professional font */
+}
+
+.album-container h1 {
+font-size: 2rem; /* Larger font size for the heading */
+font-weight: bold; /* Bold heading */
+color: #00303F; /* Cerulean color */
+margin-bottom: 30px; /* Add spacing below the heading */
+text-transform: uppercase; /* Make the heading uppercase */
+letter-spacing: 1px; /* Add spacing between letters */
+}
+
+.gallery {
+display: flex; /* Use Flexbox for side-by-side layout */
+flex-wrap: wrap; /* Allow wrapping to the next row */
+gap: 20px; /* Add spacing between cards */
+justify-content: center; /* Center the cards horizontally */
+}
+
+.card {
+background-color: #fff; /* White background for the card */
+border-radius: 10px; /* Rounded corners */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+overflow: hidden; /* Ensure content stays within the card */
+transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+width: 250px; /* Fixed width for each card */
+text-align: center; /* Center-align the content inside the card */
+}
+
+.card:hover {
+transform: translateY(-5px); /* Slight lift on hover */
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.card img {
+width: 100%; /* Make the image responsive */
+height: 200px; /* Fixed height for images */
+object-fit: cover; /* Ensure the image covers the area without distortion */
+border-bottom: 1px solid #ddd; /* Separator between image and text */
+}
+
+.card p {
+font-size: 1rem; /* Standard font size for the text */
+color: #555; /* Slightly lighter gray for text */
+padding: 10px; /* Add padding inside the card */
+margin: 0; /* Remove default margin */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.card {
+width: 45%; /* Adjust card width for smaller screens */
+}
+}
+
+@media (max-width: 480px) {
+.card {
+width: 100%; /* Make cards take full width on very small screens */
+}
+}

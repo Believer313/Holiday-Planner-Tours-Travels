@@ -1,0 +1,209 @@
+/* ===============================
+   Booking Page – Heritage Luxury
+   =============================== */
+
+/* Global reset (safe) */
+* {
+  box-sizing: border-box;
+}
+
+/* Page Background */
+body {
+  font-family: "Montserrat", sans-serif;
+  background: url("/attached_assets/generated_images/luxurious_deep_green_and_gold_marble_texture_background.png")
+    no-repeat center center fixed;
+  background-size: cover;
+  color: #1a3c34;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   HOARDING – FULL WIDTH FIX
+   =============================== */
+.hoarding {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.book-now-image,
+.hoarding img {
+  width: 100%;
+  height: 800px;
+  display: block;
+}
+
+/* ===============================
+   MAIN BOOKING CONTAINER
+   =============================== */
+.booking-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 50px;
+
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 45px;
+
+  background: rgba(249, 248, 246, 0.92);
+  backdrop-filter: blur(12px);
+
+  border-radius: 1.6rem;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
+}
+
+/* ===============================
+   LEFT SIDE – TEXT
+   =============================== */
+.booking-text {
+  flex: 1;
+  min-width: 320px;
+}
+
+.booking-text h1,
+.booking-text h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1a3c34;
+  margin-bottom: 20px;
+}
+
+.booking-text p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: rgba(26, 60, 52, 0.85);
+}
+
+/* ===============================
+   RIGHT SIDE – FORM (LEAFY GREEN)
+   =============================== */
+.booking-form {
+  flex: 1;
+  min-width: 320px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  /* Leafy green premium glass */
+  background: linear-gradient(
+    135deg,
+    rgba(26, 60, 52, 0.95),
+    rgba(34, 85, 63, 0.95)
+  );
+
+  padding: 38px;
+  border-radius: 1.4rem;
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.35);
+}
+
+/* Form Heading (if any) */
+.booking-form h2 {
+  font-family: "Playfair Display", serif;
+  color: #f9f8f6;
+  margin-bottom: 10px;
+}
+
+/* Labels */
+.booking-form label {
+  font-weight: 600;
+  color: #f9f8f6;
+}
+
+/* Inputs */
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  padding: 14px 16px;
+  border-radius: 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+
+  font-size: 1rem;
+  background: rgba(249, 248, 246, 0.96);
+  color: #1a3c34;
+
+  transition: all 0.3s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 22px rgba(212, 175, 55, 0.45);
+}
+
+.booking-form textarea {
+  resize: none;
+  min-height: 90px;
+}
+
+/* ===============================
+   SUBMIT BUTTON – GOLD GRADIENT
+   =============================== */
+.booking-form button {
+  margin-top: 10px;
+  padding: 15px 0;
+
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a3c34;
+
+  background: linear-gradient(135deg, #d4af37, #f3d97c);
+  border: none;
+  border-radius: 1rem;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.45);
+}
+
+.booking-form button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 18px 45px rgba(212, 175, 55, 0.55);
+}
+
+/* ===============================
+   SUCCESS / ERROR MESSAGES
+   =============================== */
+.success-message {
+  padding: 14px;
+  border-radius: 1rem;
+  background: #d4edda;
+  color: #155724;
+  font-weight: 600;
+}
+
+.error-message {
+  padding: 14px;
+  border-radius: 1rem;
+  background: #f8d7da;
+  color: #721c24;
+  font-weight: 600;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 1000px) {
+  .booking-container {
+    flex-direction: column;
+    padding: 30px 22px;
+  }
+
+  .booking-text,
+  .booking-form {
+    width: 100%;
+  }
+
+  .booking-text {
+    margin-bottom: 35px;
+  }
+}

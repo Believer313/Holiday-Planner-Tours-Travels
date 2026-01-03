@@ -1,0 +1,42 @@
+.facts-figures {
+text-align: center;
+margin: 2rem 0 0 0;
+padding: 3rem 0;
+background-image: url('/assets/factsandfigure.jpg'); /* Adjust path if needed */
+background-size: cover;
+background-position: center;
+color: #fff; /* Makes text visible on dark backgrounds */
+position: relative;
+}
+.facts-figures::after {
+content: "";
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+background: rgba(0,0,0,0.4); /* Optional: dark overlay for readability */
+z-index: 1;
+}
+.facts-figures > * {
+position: relative;
+z-index: 2;
+}
+.facts-container {
+display: flex;
+justify-content: center;
+gap: 2rem;
+flex-wrap: wrap;
+}
+.fact {
+background: rgba(255,255,255,0.1);
+padding: 1rem 2rem;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.fact h3 {
+margin: 0;
+color: #ffd700;
+font-size: 2rem;
+}
+.fact p {
+margin: 0.5rem 0 0 0;
+color: #fff;
+}
