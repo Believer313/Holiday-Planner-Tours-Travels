@@ -416,55 +416,35 @@
 
 
 /* ===============================
-   BOOKING SECTION – FORCE FULL WIDTH
-   Escapes parent max-width safely
+  //* ===============================
+   BOOKING SECTION — TRUE FULL WIDTH
    =============================== */
 
 .booking-section {
   width: 100%;
   background-color: #f8f8f8;
   padding: 80px 0;
-  box-sizing: border-box;
-
-  /* 🔑 Prevent scrollbar from 100vw math */
   overflow-x: hidden;
 }
 
-/* ---------------------------------
-   FORCE container to IGNORE parent
-   max-width (THIS IS THE FIX)
-   --------------------------------- */
+/* 🔥 FORCE SAME WIDTH AS HERO / EXPLORE */
 .booking-container {
-  display: flex;
-  align-items: center;
-
-  /* 🔥 CRITICAL FIX */
-  max-width: none !important;
-
-  /* Full viewport width */
-  width: 100vw;
-
-  /* Break out of centered parent */
+  width: 100vw;                  /* FULL SCREEN */
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
 
-  padding: 0 80px;
-  gap: 60px;
+  padding: 0 80px;               /* small side gap (premium look) */
   box-sizing: border-box;
-}
 
-/* Columns */
-.booking-text,
-.booking-image-card {
-  flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column;        /* TEXT → IMAGE */
+  gap: 50px;
 }
 
-/* ===============================
-   TEXT
-   =============================== */
+/* TEXT */
+.booking-text {
+  max-width: 1100px;
+}
 
 .booking-text h1 {
   font-size: 2.8rem;
@@ -476,42 +456,32 @@
   font-size: 1.2rem;
   line-height: 1.7;
   color: #444;
-  max-width: 90%;
+  max-width: 900px;
 }
 
-/* Button */
+/* BUTTON */
 .book-now-btn {
+  margin-top: 20px;
   background-color: #ff5722;
-  color: #ffffff;
+  color: white;
   border: none;
-  padding: 10px 18px;
-  width: fit-content;
+  padding: 12px 22px;
+  font-size: 1.1rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .book-now-btn:hover {
   background-color: #e64a19;
-  transform: translateY(-2px);
 }
 
-/* ===============================
-   IMAGE
-   =============================== */
-
+/* IMAGE — SAME FEEL AS HERO */
 .booking-image-card {
-  height: 600px;
+  width: 100%;
+  height: 600px;                 /* 🔥 BIG — SAME SCALE */
   border-radius: 16px;
   overflow: hidden;
-
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.booking-image-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
 }
 
 .booking-image {
@@ -520,19 +490,10 @@
   object-fit: cover;
 }
 
-/* ===============================
-   MOBILE
-   =============================== */
-
+/* MOBILE */
 @media (max-width: 768px) {
   .booking-container {
-    flex-direction: column;
     padding: 0 20px;
-    gap: 30px;
-  }
-
-  .booking-text p {
-    max-width: 100%;
   }
 
   .booking-image-card {

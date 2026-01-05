@@ -12,7 +12,7 @@ const Booking = () => {
     <section className="booking-section">
       <div className="booking-container">
 
-        {/* Text column */}
+        {/* Text */}
         <div className="booking-text">
           <h1>Booking</h1>
           <p>
@@ -25,7 +25,7 @@ const Booking = () => {
           </button>
         </div>
 
-        {/* Image column */}
+        {/* Image */}
         <div className="booking-image-card">
           <img
             src="/assets/tourbook.jpg"
