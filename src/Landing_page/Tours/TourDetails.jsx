@@ -1,50 +1,32 @@
-// src/Landing_page/Tours/TourDetails.jsx   ← Your exact file name
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const TourDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
-  // Your 3 beautiful sample details (fallback)
   const sampleTours = {
-    "1": {
+    "sample-1": {
       title: "Sunderban Trip",
       images: ["/assets/Tiger.png"],
-      description: `3 Days & 2 Nights Package:
-- Pick-up and drop from Canning
-- Deluxe room accommodation
-- Tea, breakfast, lunch, and dinner included
-- 24×7 experienced guide for assistance
-- Visit watch tower and sightseeing spots via boat with safety
-- Family-friendly boat trips
-- Special Offer: Only ₹4,500 per person (4-bed sharing package)`,
+      description:
+        "3 Days & 2 Nights package with food, boat safari & guide.",
       price: 4500,
     },
-    "2": {
+    "sample-2": {
       title: "Darjeeling Trip",
       images: ["/assets/Kanchenjunga.jpg"],
-      description: `4 Days & 3 Nights Package:
-- Pick-up and drop from Kolkata
-- Sleeper class train ticket included in package cost
-- Deluxe room accommodation
-- All meals provided (Halal food ensured)
-- 24×7 expert guide
-- Stay overnight at each sightseeing spot
-- Complimentary gift after travel`,
+      description:
+        "4 Days & 3 Nights trip including sightseeing and meals.",
       price: 2500,
     },
-    "3": {
+    "sample-3": {
       title: "Purulia Trip",
       images: ["/assets/purulia.jpg"],
-      description: `3 Days & 2 Nights Package:
-- Pick-up and drop from designated locations
-- AC and Non-AC deluxe tent accommodation
-- Bed tea, breakfast, lunch, snacks, and dinner included
-- 24×7 expert guide for assistance
-- Price: ₹5,500 (2 or 3-bed sharing) / ₹5,300 (4-bed sharing)`,
+      description:
+        "3 Days & 2 Nights cultural experience with local food.",
       price: 5500,
     },
   };
@@ -52,51 +34,44 @@ const TourDetails = () => {
   useEffect(() => {
     const fetchTour = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/tours/${id}`);
-        if (res.ok) {
-          const data = await res.json();
-          setTour(data);
-        } else {
-          throw new Error();
-        }
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/tours/${id}`
+        );
+        if (!res.ok) throw new Error();
+
+        const data = await res.json();
+        setTour(data);
       } catch (err) {
-        const sample = sampleTours[id];
-        if (sample) {
-          setTour(sample);
-        } else {
-          alert("Tour not found!");
-          navigate('/tours');
-        }
+        setTour(sampleTours[id]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchTour();
-  }, [id, navigate]);
+  }, [id]);
 
-  if (loading) return <div style={{textAlign:'center', padding:'100px', color:'#228B22'}}>Loading tour details...</div>;
-  if (!tour) return null;
+  if (loading) return <div style={{ padding: "100px" }}>Loading...</div>;
+  if (!tour) return <div>Tour not found</div>;
 
   return (
     <div className="tour-details-container">
       <img
-        src={tour.images?.[0] || '/assets/Tiger.png'}
+        src={tour.images?.[0] || "/assets/Tiger.png"}
         alt={tour.title}
         className="tour-details-image"
-        onError={(e) => e.target.src = '/assets/Tiger.png'}
       />
+
       <h1>{tour.title}</h1>
-      <p className="tour-price">₹{tour.price.toLocaleString()} per person</p>
-      <div style={{ whiteSpace: 'pre-line', lineHeight: '1.8', fontSize: '1.1rem', margin: '30px 0' }}>
-        {tour.description || "Experience an unforgettable journey with us!"}
-      </div>
+      <p className="tour-price">₹{tour.price}</p>
+
+      <p style={{ whiteSpace: "pre-line" }}>{tour.description}</p>
+
       <button
         className="booking-button"
         onClick={() => navigate(`/booking?tourId=${id}`)}
-        style={{ padding: '15px 40px', fontSize: '1.2rem' }}
       >
-        Book This Tour Now
+        Book This Tour
       </button>
     </div>
   );
