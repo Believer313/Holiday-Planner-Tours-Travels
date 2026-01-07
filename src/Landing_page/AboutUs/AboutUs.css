@@ -1,296 +1,283 @@
-/* =====================================
-   ABOUT SECTION – PREMIUM LUXURIOUS
-===================================== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* ------------------------
-   About Section Container
------------------------- */
-.about {
-  width: 100vw;
-  padding: 100px 60px;
-  background: linear-gradient(135deg, rgba(34,139,34,0.05), rgba(0,48,63,0.05));
-  text-align: center;
-  font-family: 'Poppins', Arial, sans-serif;
-  color: #0B6623;
-  line-height: 1.9;
+/* --- DESIGN SYSTEM VARIABLES --- */
+:root {
+  --emerald: #022c22;
+  --gold: #d4af37;
+  --cream: #fdfdfa;
+  --text-main: #064e3b;
+  --text-muted: #4b5563;
+  --white: #ffffff;
+  --transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* About Heading Wrapper */
-.about-heading-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 50px;
-}
-
-.about-heading h1 {
-  font-size: 3.5rem;
-  font-weight: 900;
-  color: #228B22;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
-/* About Paragraph */
-.about p {
-  font-size: 1.3rem;
-  color: #333;
-  margin-bottom: 30px;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-main);
+  overflow-x: hidden;
 }
 
-.about p strong {
-  color: #007bff;
-  font-weight: bold;
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
 }
 
-/* ------------------------
-   Banner Styling
------------------------- */
+/* --- BANNER SECTION --- */
 .banner {
   position: relative;
-  width: 100vw;
-  height: 550px;
+  width: 100%;
+  height: 60vh;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .banner-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  filter: brightness(0.7);
+  transform: scale(1.05);
 }
 
-/* ------------------------
-   Our Team Section
------------------------- */
-.our-team {
-  width: 100vw;
-  padding: 100px 60px;
-  text-align: center;
-  font-family: 'Poppins', Arial, sans-serif;
-  background: #F5FFF8;
-}
-
-.our-team h1 {
-  font-size: 3.5rem;
-  font-weight: 900;
-  color: #228B22;
-  margin-bottom: 40px;
-}
-
-.our-team p {
-  font-size: 1.3rem;
-  color: #555;
-  margin-bottom: 60px;
-}
-
-/* Team Member Container */
-.team-member {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 70px;
-  gap: 40px;
-  background: #e6f2e6; /* soft leafy-like background */
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.team-member:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
-}
-
-.team-member.reverse {
-  flex-direction: row-reverse;
-}
-
-/* Team Photo */
-.team-photo {
-  flex: 1;
+/* --- ABOUT HEADING --- */
+.about-heading-wrapper {
+  padding: 80px 20px 20px;
   text-align: center;
 }
 
-.team-photo img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 50%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease;
+.about-heading h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--emerald);
+  letter-spacing: -0.02em;
 }
 
-.team-photo img:hover {
-  transform: scale(1.08);
+.about-heading h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 15px auto 0;
 }
 
-/* Crown / Icon (optional) */
-.team-photo .team-icon {
-  font-size: 120px;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  transition: transform 0.3s ease;
+/* --- ABOUT CONTENT --- */
+.about {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 50px;
+  text-align: center;
+  line-height: 2;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
-.team-photo .team-icon:hover {
-  transform: scale(1.08);
-}
-
-/* Team Details */
-.team-details {
-  flex: 2;
-  text-align: left;
-  padding: 0 25px;
-}
-
-.team-details h2 {
-  font-size: 2.3rem;
-  color: #007bff;
-  margin-bottom: 20px;
-}
-
-.team-details h3 {
-  font-size: 1.5rem;
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.team-details p {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #333;
-}
-
-/* ------------------------
-   Mission Section
------------------------- */
+/* --- MISSION SECTION --- */
 .mission-container {
-  width: 100vw;
+  padding: 70px 8%;
+  background-color: var(--white);
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.mission-container .row {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
   align-items: center;
-  padding: 100px 60px;
-  gap: 60px;
-  background: linear-gradient(135deg, rgba(0,48,63,0.05), rgba(34,139,34,0.05));
+  gap: 80px;
+  width: 100%;
 }
 
 .mission-image {
-  flex: 0 0 45%; /* 45% width */
+  flex: 0 0 45%;
+  min-width: 400px;
 }
 
-.mission-image img {
+.mission-img {
   width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  object-fit: cover;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 25px 25px 0px var(--emerald);
+  transition: var(--transition);
+}
+
+.mission-img:hover {
+  transform: translate(-10px, -10px);
 }
 
 .mission-text {
   flex: 1;
-  color: #0B6623;
-  padding-left: 30px;
 }
 
 .mission-text h2 {
-  font-size: 3rem;
-  color: #228B22;
+  font-size: 3.5rem;
+  color: var(--emerald);
   margin-bottom: 25px;
+  font-style: italic;
 }
 
 .mission-text p {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  color: #333;
+  font-size: 1.2rem;
+  line-height: 2;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
-/* ------------------------
-   RESPONSIVE DESIGN
------------------------- */
+/* MISSION HIGHLIGHTS */
+.highlight-blue { color: var(--emerald); font-weight: 600; }
+.highlight-green { color: var(--gold); font-weight: 600; }
+.highlight-red { color: #8b0000; font-weight: 600; }
+
+/* --- OUR TEAM SECTION --- */
+.our-team {
+  padding: 100px 8%;
+  background-color: var(--cream);
+  text-align: center;
+}
+
+.our-team h1 {
+  font-size: 4rem;
+  color: var(--emerald);
+  margin-bottom: 25px;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  margin-top: 80px;
+  gap: 80px;
+  text-align: left;
+}
+
+.team-member:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.team-photo {
+  flex: 0 0 450px;
+}
+
+.team-photo img, .team-photo .team-icon {
+  width: 100%;
+  height: 450px;
+  object-fit: contain; /* Prevents zooming/cutting heads */
+  border: 1px solid var(--gold);
+  padding: 15px;
+  background: white;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-photo img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(2, 44, 34, 0.1);
+}
+
+.team-photo .team-icon {
+  font-size: 8rem;
+  color: var(--gold);
+}
+
+.team-details h2 {
+  font-size: 2.5rem;
+  color: var(--emerald);
+  margin-bottom: 12px;
+}
+
+.team-details h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--gold);
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.team-details p {
+  line-height: 2;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 1200px) {
+  .mission-container .row {
+    gap: 40px;
+  }
+  .mission-image {
+    min-width: 350px;
+  }
+}
+
 @media (max-width: 1024px) {
-  .mission-container {
-    flex-direction: column;
+  .mission-container .row {
+    flex-direction: column !important;
+    flex-wrap: wrap;
+  }
+  
+  .mission-image {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .team-member, .team-member:nth-child(even) {
+    flex-direction: column !important;
     text-align: center;
+    gap: 40px;
   }
-
-  .mission-text {
-    margin-top: 40px;
-    padding-left: 0;
-  }
-
-  .team-member {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .team-member.reverse {
-    flex-direction: column;
-  }
-
-  .team-photo img {
-    max-width: 220px;
-  }
-
-  .team-photo .team-icon {
-    width: 220px;
-    height: 220px;
-    font-size: 100px;
-  }
-
-  .team-details {
-    padding: 20px 0;
+  
+  .team-photo {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 450px;
   }
 }
 
 @media (max-width: 768px) {
-  .about, .our-team, .mission-container {
-    padding: 60px 30px;
+  .banner {
+    height: 45vh;
   }
-
-  .about-heading h1,
-  .our-team h1,
+  
+  .mission-container {
+    padding: 60px 24px;
+  }
+  
   .mission-text h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
-
-  .about p,
-  .our-team p,
-  .mission-text p {
-    font-size: 1.15rem;
+  
+  .team-photo img, .team-photo .team-icon {
+    height: 350px;
+  }
+  
+  .mission-img {
+    box-shadow: 15px 15px 0px var(--emerald);
   }
 }
 
 @media (max-width: 480px) {
   .banner {
-    height: 250px;
+    height: 35vh;
   }
 
-  .mission-image {
-    flex: 1 1 100%;
+  .mission-text h2 {
+    font-size: 2.2rem;
   }
 
-  .mission-image img {
-    max-width: 100%;
+  .team-photo img, .team-photo .team-icon {
+    height: 300px;
   }
-
-  .team-photo img,
-  .team-photo .team-icon {
-    max-width: 180px;
-    max-height: 180px;
-    font-size: 80px;
+  
+  .mission-img {
+    box-shadow: 10px 10px 0px var(--emerald);
   }
 }
