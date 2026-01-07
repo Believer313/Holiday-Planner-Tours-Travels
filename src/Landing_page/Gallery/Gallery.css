@@ -1,67 +1,148 @@
-/* Album Section Styling */
-.album-container {
-width: 100%;
-max-width: 1200px; /* Limit the width for better readability */
-margin: 50px auto; /* Center the section and add vertical spacing */
-padding: 20px; /* Add padding inside the section */
-text-align: center; /* Center-align the heading */
-font-family: 'Poppins', sans-serif; /* Clean and professional font */
+/* ===== GOOGLE FONTS ===== */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap");
+
+/* ===== ROOT THEME ===== */
+:root {
+  --color-background: hsl(60 11% 98%);
+  --color-foreground: hsl(166 87% 12%);
+  --color-primary: hsl(166 87% 16%);
+  --color-secondary: hsl(46 65% 52%);
+  --color-muted: hsl(166 30% 95%);
+  --color-muted-foreground: hsl(166 40% 40%);
+  --color-border: hsl(166 20% 90%);
+
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif;
+
+  --radius: 14px;
 }
 
-.album-container h1 {
-font-size: 2rem; /* Larger font size for the heading */
-font-weight: bold; /* Bold heading */
-color: #00303F; /* Cerulean color */
-margin-bottom: 30px; /* Add spacing below the heading */
-text-transform: uppercase; /* Make the heading uppercase */
-letter-spacing: 1px; /* Add spacing between letters */
+/* ===== BASE RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.gallery {
-display: flex; /* Use Flexbox for side-by-side layout */
-flex-wrap: wrap; /* Allow wrapping to the next row */
-gap: 20px; /* Add spacing between cards */
-justify-content: center; /* Center the cards horizontally */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
 }
 
-.card {
-background-color: #fff; /* White background for the card */
-border-radius: 10px; /* Rounded corners */
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-overflow: hidden; /* Ensure content stays within the card */
-transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
-width: 250px; /* Fixed width for each card */
-text-align: center; /* Center-align the content inside the card */
+/* ===== GALLERY SECTION ===== */
+.gallery-section {
+  padding: clamp(3rem, 6vw, 6rem) 1rem;
+  background:
+    radial-gradient(circle at top left, hsl(166 87% 16% / 0.04), transparent),
+    radial-gradient(circle at bottom right, hsl(46 65% 52% / 0.04), transparent);
 }
 
-.card:hover {
-transform: translateY(-5px); /* Slight lift on hover */
-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+/* ===== HEADER ===== */
+.gallery-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
 }
 
-.card img {
-width: 100%; /* Make the image responsive */
-height: 200px; /* Fixed height for images */
-object-fit: cover; /* Ensure the image covers the area without distortion */
-border-bottom: 1px solid #ddd; /* Separator between image and text */
+.gallery-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--color-primary);
 }
 
-.card p {
-font-size: 1rem; /* Standard font size for the text */
-color: #555; /* Slightly lighter gray for text */
-padding: 10px; /* Add padding inside the card */
-margin: 0; /* Remove default margin */
+.gallery-subtitle {
+  margin-top: 0.9rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  color: var(--color-muted-foreground);
+  line-height: 1.8;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-.card {
-width: 45%; /* Adjust card width for smaller screens */
-}
+/* ===== GRID (AUTO PERFECT FOR ALL SCREENS) ===== */
+.gallery-grid {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
 }
 
-@media (max-width: 480px) {
-.card {
-width: 100%; /* Make cards take full width on very small screens */
+/* ===== CARD ===== */
+.gallery-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
+
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 35px 65px rgba(0, 0, 0, 0.14);
+}
+
+/* ===== IMAGE (RESPONSIVE HEIGHT) ===== */
+.gallery-card img {
+  width: 100%;
+  height: clamp(210px, 26vw, 300px);
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.07);
+}
+
+/* ===== OVERLAY ===== */
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.05)
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-card:hover .gallery-overlay {
+  opacity: 1;
+}
+
+/* ===== CAPTION ===== */
+.gallery-caption {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.4px;
+}
+
+/* ===== EXTRA SMALL DEVICES (≤360px) ===== */
+@media (max-width: 360px) {
+  .gallery-card img {
+    height: 200px;
+  }
+
+  .gallery-caption {
+    bottom: 14px;
+    left: 14px;
+  }
+}
+
+/* ===== ULTRA WIDE SCREENS (≥1600px) ===== */
+@media (min-width: 1600px) {
+  .gallery-grid {
+    max-width: 1600px;
+  }
 }
