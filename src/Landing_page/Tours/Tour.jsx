@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Tour = () => {
+  const navigate = useNavigate();
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
-  // ✅ SAMPLE TOURS (Always visible)
+  // ✅ SAMPLE TOURS
   const sampleTours = [
     {
       _id: "sample-1",
@@ -37,15 +37,11 @@ const Tour = () => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/tours`
-        );
-        if (!res.ok) throw new Error("Backend down");
-
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/tours`);
+        if (!res.ok) throw new Error();
         const data = await res.json();
         setTours([...sampleTours, ...data]);
-      } catch (err) {
-        console.log("Backend not reachable → showing sample tours");
+      } catch {
         setTours(sampleTours);
       } finally {
         setLoading(false);
@@ -55,64 +51,67 @@ const Tour = () => {
     fetchTours();
   }, []);
 
-  const handleCardClick = (id) => {
-    if (id.startsWith("sample-")) return;
-    navigate(`/tour/${id}`);
-  };
-
-  const handleBookingClick = (e, id) => {
-    e.stopPropagation();
-    if (id.startsWith("sample-")) {
-      alert("Booking will open soon!");
-      return;
-    }
-    navigate(`/booking?tourId=${id}`);
-  };
-
   if (loading) {
     return (
-      <div style={{ textAlign: "center", padding: "100px" }}>
+      <div style={{ padding: "100px", textAlign: "center" }}>
         Loading tours...
       </div>
     );
   }
 
   return (
-    <div className="tour-container">
-      <h1 className="tour-title">Explore Our Tours</h1>
+    <section className="tour-section">
+      <div className="tour-container">
+        <h2 className="tour-title">Explore Our Tours</h2>
 
-      <div className="tour-grid">
-        {tours.map((tour) => (
-          <div
-            key={tour._id}
-            className="tour-card"
-            onClick={() => handleCardClick(tour._id)}
-          >
-            <img
-              src={tour.images?.[0] || "/assets/Tiger.png"}
-              alt={tour.title}
-              className="tour-image"
-              onError={(e) => (e.target.src = "/assets/Tiger.png")}
-            />
+        <div className="tour-grid">
+          {tours.map((tour) => (
+            <div
+              key={tour._id}
+              className="tour-card"
+              onClick={() => navigate(`/tour/${tour._id}`)}
+            >
+              <div className="tour-card-image-wrapper">
+                <img
+                  src={tour.images?.[0] || "/assets/Tiger.png"}
+                  alt={tour.title}
+                  className="tour-image"
+                  onError={(e) =>
+                    (e.target.src = "/assets/Tiger.png")
+                  }
+                />
+              </div>
 
-            <div className="tour-details">
-              <h3>{tour.title}</h3>
-              <p>{tour.shortDescription}</p>
-              <p className="tour-price">₹{tour.price}</p>
+              <div className="tour-details">
+                <h3 className="tour-card-title">{tour.title}</h3>
 
-              <button
-                className="booking-button"
-                onClick={(e) => handleBookingClick(e, tour._id)}
-              >
-                {tour._id.startsWith("sample-")
-                  ? "Coming Soon"
-                  : "Book Now"}
-              </button>
+                <p className="tour-card-description">
+                  {tour.shortDescription}
+                </p>
+
+                <p className="tour-price">₹{tour.price}</p>
+
+                <button
+                  className="booking-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (tour._id.startsWith("sample-")) {
+                      alert("Booking will open soon!");
+                    } else {
+                      navigate(`/booking?tourId=${tour._id}`);
+                    }
+                  }}
+                >
+                  {tour._id.startsWith("sample-")
+                    ? "Coming Soon"
+                    : "Book Now"}
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
