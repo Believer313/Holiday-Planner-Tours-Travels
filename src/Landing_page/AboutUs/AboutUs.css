@@ -281,3 +281,74 @@ h1, h2, h3 {
     box-shadow: 10px 10px 0px var(--emerald);
   }
 }
+/* --- ABOUT BANNER (ISOLATED) --- */
+.about-banner {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.about-banner-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+  transform: scale(1.05);
+}
+
+.about-banner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8%;
+  color: var(--white);
+  background: linear-gradient(
+    to right,
+    rgba(2, 44, 34, 0.75),
+    rgba(2, 44, 34, 0.25),
+    transparent
+  );
+}
+
+.about-banner-tag {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.about-banner-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.about-banner-title span {
+  display: block;
+  font-style: italic;
+  color: var(--gold);
+}
+
+.about-banner-text {
+  max-width: 620px;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #f3f4f6;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .about-banner {
+    height: 45vh;
+  }
+
+  .about-banner-overlay {
+    padding: 0 24px;
+  }
+}

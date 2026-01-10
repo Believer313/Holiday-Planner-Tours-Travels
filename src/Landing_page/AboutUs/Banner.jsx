@@ -1,41 +1,31 @@
 import React from "react";
-import bannerImage from "/assets/tourbanner.png";
+import bannerImage from "/assets/Aboutnewbanner.jpg";
 
-const TourBanner = () => {
+const AboutBanner = () => {
   return (
-    <section className="tour-banner">
+    <section className="about-banner">
       <img
         src={bannerImage}
-        alt="Curated Tour Experiences"
-        className="tour-banner-bg"
+        alt="About Holiday Planner Tour & Travel"
+        className="about-banner-bg"
       />
 
-      <div className="tour-banner-content">
-        <div className="tour-banner-label">
-          Curated Experiences
-        </div>
+      <div className="about-banner-overlay">
+        <span className="about-banner-tag">Who We Are</span>
 
-        <h1 className="tour-banner-title">
-          Discover Extraordinary
-          <span>Destinations</span>
+        <h1 className="about-banner-title">
+          Crafting Meaningful
+          <span>Journeys</span>
         </h1>
 
-        <p className="tour-banner-subtitle">
-          Immerse yourself in handcrafted journeys through India's most
-          captivating landscapes. Every tour is designed for those who seek
-          authentic experiences wrapped in luxury.
+        <p className="about-banner-text">
+          At Holiday Planner Tour & Travel, we design experiences — not just
+          trips. Every journey is curated with passion, purpose, and a deep
+          respect for culture and comfort.
         </p>
-
-        <button className="tour-banner-cta">
-          Explore Our Tours
-        </button>
-      </div>
-
-      <div className="tour-banner-scroll">
-        <span>Scroll</span>
       </div>
     </section>
   );
 };
 
-export default TourBanner;
+export default AboutBanner;
