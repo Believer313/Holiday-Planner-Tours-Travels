@@ -9,28 +9,28 @@ const Booking = () => {
   };
 
   return (
-    <section className="booking-section">
-      <div className="booking-container">
+    <section className="home-booking-promo">
+      <div className="home-booking-wrapper">
 
         {/* Text */}
-        <div className="booking-text">
+        <div className="home-booking-content">
           <h1>Booking</h1>
           <p>
             Ready to explore breathtaking destinations? Our hassle-free booking system makes it easy to plan your dream trip.
             <br />
             Choose your destination, select your dates, and let us handle the rest and create unforgettable memories!
           </p>
-          <button className="book-now-btn" onClick={handleBookNow}>
+          <button className="home-booking-cta" onClick={handleBookNow}>
             <strong>Book now</strong>
           </button>
         </div>
 
         {/* Image */}
-        <div className="booking-image-card">
+        <div className="home-booking-visual">
           <img
             src="/assets/tourbook.jpg"
             alt="Travel Booking"
-            className="booking-image"
+            className="home-booking-img"
           />
         </div>
 
