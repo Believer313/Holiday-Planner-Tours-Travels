@@ -1,18 +1,40 @@
 {
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "admin.holidayplannertourtravel.org"
-        }
-      ],
-      "destination": "/admin"
+      "source": "/admin/:path*",
+      "destination": "/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/tours/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/gallery",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/booking",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/auth",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/forgot-password",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/reset-password/:token",
+      "destination": "/index.html"
     }
   ]
 }
