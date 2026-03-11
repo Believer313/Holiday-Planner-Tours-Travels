@@ -9,6 +9,10 @@
         }
       ],
       "destination": "/admin"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
