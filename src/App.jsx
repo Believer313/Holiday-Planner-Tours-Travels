@@ -24,6 +24,7 @@ import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import FactsAndFigures from "./components/ui/FactsAndFigure";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NotFound from "./pages/NotFound";
 
 // Layout Component — Hides Navbar/Footer on Auth & Admin Pages
 const Layout = ({ children }) => {
@@ -80,7 +81,8 @@ const App = () => (
         <Route path="/admin/create-tour" element={<CreateTour />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/users" element={<AdminUsers />} />
-        <Route path="/admin/revenue" element={<AdminRevenue />} />   
+        <Route path="/admin/revenue" element={<AdminRevenue />} />  
+        <Route path="*" element={<NotFound />} /> 
 
         {/* 404 - Page Not Found */}
         <Route path="*" element={
