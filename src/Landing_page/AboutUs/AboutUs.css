@@ -117,7 +117,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 
 .about-intro {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.9;
   font-weight: 400;
   color: var(--text-muted);
@@ -126,13 +126,19 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   max-width: 680px;
 }
 
-/* Value cards — mobile stacked */
+/* Value cards — 2 cols from 480px */
 .about-values {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
   max-width: 680px;
   margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  .about-values {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .about-value-card {
@@ -163,16 +169,16 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 .about-value-title {
   font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--emerald);
   margin-bottom: 4px;
 }
 
 .about-value-desc {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
 }
 
@@ -200,7 +206,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 .mission-img {
   width: 100%;
-  height: 320px;
+  height: clamp(380px, 75vw, 520px);
   object-fit: cover;
   display: block;
   border-radius: 4px;
@@ -212,13 +218,17 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   transform: translate(-5px, -5px);
 }
 
-.mission-text { width: 100%; }
+.mission-text {
+  width: 100%;
+  text-align: left;
+}
 
 .mission-text h2 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   color: var(--white);
   margin-bottom: 20px;
   font-style: italic;
+  text-align: left;
 }
 
 .mission-text p {
@@ -269,8 +279,8 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 .team-list {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-top: 40px;
+  gap: 16px;
+  margin-top: 32px;
 }
 
 /* Team member card — mobile stacked */
@@ -282,7 +292,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   text-align: center;
   background: var(--white);
   border-radius: 12px;
-  padding: 32px 24px;
+  padding: 24px 20px;
   border: 1px solid rgba(212, 175, 55, 0.2);
   box-shadow: 0 2px 16px rgba(2, 44, 34, 0.07);
   transition: var(--transition);
@@ -295,13 +305,13 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 .team-photo {
   width: 100%;
-  max-width: 280px;
+  max-width: 320px;
   flex-shrink: 0;
 }
 
 .team-photo img {
   width: 100%;
-  height: 280px;
+  height: 340px;
   object-fit: contain;
   border: 1px solid var(--gold);
   padding: 10px;
@@ -329,7 +339,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 
 .team-details h3 {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 3px;
   color: var(--gold);
@@ -342,7 +352,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   line-height: 1.9;
   color: var(--text-muted);
   font-weight: 400;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 /* ============================================
@@ -433,7 +443,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   .about { padding: 0 8% 80px; }
 
   .about-intro {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     max-width: 860px;
   }
 
@@ -532,7 +542,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
   .team-details { flex: 1; }
   .team-details h2 { font-size: 2.2rem; }
-  .team-details p { font-size: 1rem; max-width: 540px; }
+  .team-details p { font-size: 1.08rem; max-width: 560px; line-height: 2; }
 }
 
 /* ============================================
