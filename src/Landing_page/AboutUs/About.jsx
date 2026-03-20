@@ -1,20 +1,50 @@
-
-// Removed incorrect import
-
 const About = () => {
+  const values = [
+    {
+      icon: "✦",
+      title: "Affordable Excellence",
+      desc: "High-quality travel experiences at prices that won't break the bank.",
+    },
+    {
+      icon: "✦",
+      title: "Personalized Care",
+      desc: "Every trip is tailored to your needs with attentive, dedicated service.",
+    },
+    {
+      icon: "✦",
+      title: "Halal & Hygienic Meals",
+      desc: "Delicious, fully halal meal options guaranteed on every journey.",
+    },
+    {
+      icon: "✦",
+      title: "Seamless Planning",
+      desc: "We handle everything — accommodation, transport, and every detail in between.",
+    },
+  ];
+
   return (
     <div className="about">
-      <p>
-        At Holiday Planner Tour and Travels, we are committed to making every journey memorable and stress-free. Whether you're looking for a relaxing vacation, a spiritual retreat, or an adventurous getaway, we ensure a seamless and comfortable travel experience.
-        <br /><br />
-        What sets us apart is our dedication to providing exceptional service at competitive prices. We focus on every detail to make your trip smooth, enjoyable, and tailored to your needs.
-        <br /><br />
-        Affordable Excellence – Enjoy high-quality travel experiences at reasonable prices.<br />
-        Personalized Care – We prioritize customer satisfaction with attentive and dedicated service.<br />
-        Halal & Hygienic Meals – We ensure delicious and fully halal meal options during your travels.<br />
-        Seamless Planning – From accommodations to transportation, we handle every aspect of your journey.<br />
-        With Holiday Planner Tour and Travels, your comfort and satisfaction are our top priorities. Experience travel the way it should be – effortless, enjoyable, and perfectly planned.
+
+      {/* Short intro — max 2 sentences */}
+      <p className="about-intro">
+        At Holiday Planner Tour & Travels, we design experiences — not just trips.
+        Founded in Hooghly, West Bengal, we have been crafting stress-free, memorable
+        journeys for thousands of happy travelers across India.
       </p>
+
+      {/* Value cards */}
+      <div className="about-values">
+        {values.map((item, index) => (
+          <div className="about-value-card" key={index}>
+            <span className="about-value-icon">{item.icon}</span>
+            <div>
+              <h4 className="about-value-title">{item.title}</h4>
+              <p className="about-value-desc">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 };
