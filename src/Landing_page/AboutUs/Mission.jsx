@@ -3,18 +3,19 @@ import React from 'react';
 function Mission() {
   return (
     <div className="mission-container">
-      <div className="row g-4 align-items-center">
-        {/* Image Column */}
-        <div className="col-6 mission-image">
+      <div className="mission-row">
+
+        {/* Image */}
+        <div className="mission-image">
           <img
             src="/assets/touristteamsunder.jpg"
             alt="Our team with happy travelers on Sundarban Tour"
-            className="mission-img img-fluid"
+            className="mission-img"
           />
         </div>
 
-        {/* Text Column */}
-        <div className="col-6 mission-text">
+        {/* Text */}
+        <div className="mission-text">
           <h2>Our Mission</h2>
           <p>
             At Holiday Planner Tour & Travels, our mission is to make travel accessible, enjoyable, and culturally enriching for everyone.
@@ -24,6 +25,7 @@ function Mission() {
             while ensuring <span className="highlight-red">stress-free planning</span> and exceptional customer satisfaction.
           </p>
         </div>
+
       </div>
     </div>
   );
