@@ -10,7 +10,7 @@ function Hoarding() {
           <p>Handcrafted journeys through India's most beautiful destinations</p>
         </div>
       </div>
-      <img src="/assets/IMG-20250321-WA0034.jpg" alt="Happy travelers on Sundarban tour" className="book-now-image" />
+      <img src="/assets/Mountain_Pointing" alt="Happy travelers on Sundarban tour" className="book-now-image" />
     </section>
   )
 }
