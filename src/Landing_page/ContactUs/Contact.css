@@ -302,8 +302,25 @@
 .contact-banner {
   position: relative;
   width: 100%;
-  height: 420px;
+  height: 75vh;
   overflow: hidden;
+}
+
+.contact-banner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.55)
+  );
+  z-index: 2;
+  pointer-events: none;
 }
 
 .contact-banner-image {
@@ -360,7 +377,7 @@
   }
 
   .contact-banner {
-    height: 320px;
+    height: 60vh;
   }
 
   .contact-banner-overlay h1 {
