@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { CgMenu, CgClose } from "react-icons/cg";
 import "./Navbar.css";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -44,7 +43,6 @@ export default function Navbar() {
                 Home
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink
                 to="/tour"
@@ -54,7 +52,6 @@ export default function Navbar() {
                 Tour
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink
                 to="/about"
@@ -64,7 +61,6 @@ export default function Navbar() {
                 About
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink
                 to="/gallery"
@@ -74,7 +70,6 @@ export default function Navbar() {
                 Gallery
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink
                 to="/contact"
@@ -84,7 +79,6 @@ export default function Navbar() {
                 Contact
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink
                 to="/booking"
@@ -92,29 +86,6 @@ export default function Navbar() {
                 onClick={closeMenu}
               >
                 Booking
-              </NavLink>
-            </li>
-
-            {/* AUTH BUTTONS */}
-            <li className="nav-item">
-              <NavLink
-                to="/signin"
-                className="nav-link auth-signin"
-                onClick={closeMenu}
-              >
-                <FontAwesomeIcon icon={faUser} />
-                Sign In
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink
-                to="/signup"
-                className="nav-link auth-signup"
-                onClick={closeMenu}
-              >
-                <FontAwesomeIcon icon={faUserPlus} />
-                Sign Up
               </NavLink>
             </li>
           </ul>
