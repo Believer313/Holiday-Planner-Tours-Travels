@@ -96,14 +96,14 @@ const Tour = () => {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour._id.startsWith("sample-")) {
-                      alert("Booking will open soon!");
+                      window.open("https://wa.me/919907740169?text=Hi!%20I%20am%20interested%20in%20the%20" + encodeURIComponent(tour.title), "_blank");
                     } else {
                       navigate(`/booking?tourId=${tour._id}`);
                     }
                   }}
                 >
                   {tour._id.startsWith("sample-")
-                    ? "Coming Soon"
+                    ? "Enquire on WhatsApp"
                     : "Book Now"}
                 </button>
               </div>

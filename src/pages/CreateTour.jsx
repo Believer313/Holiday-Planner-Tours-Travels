@@ -368,11 +368,11 @@ export default function CreateTour() {
               <div className="create-tour-support-card">
                 <h4>Need Help?</h4>
                 <p>Contact our support team for assistance with creating tours.</p>
-                <a href="tel:+919876543210" className="support-link">
+                <a href="tel:+919907740169" className="support-link">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
                   </svg>
-                  +91 98765 43210
+                  +91 9907740169
                 </a>
               </div>
             </div>
