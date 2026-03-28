@@ -47,10 +47,10 @@ const WhatsAppButton = () => (
       transition: 'transform 0.2s ease, box-shadow 0.2s ease',
       textDecoration: 'none',
     }}
-    onMouseEnter={e => {
+    onMouseEnter={(e) => {
       e.currentTarget.style.transform = 'scale(1.1)';
       e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.3)';
-    onMouseLeave={e => {
+    onMouseLeave={(e) => {
       e.currentTarget.style.transform = 'scale(1)';
       e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.25)';
   >
