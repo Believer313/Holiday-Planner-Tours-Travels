@@ -132,12 +132,12 @@ export default function CreateTour() {
                         <line x1="12" y1="1" x2="12" y2="23"/>
                         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                       </svg>
-                      Price (₹)
+                      Price (₹) — shown as "Starting from"
                     </label>
                     <input 
                       type="number"
                       className="form-input"
-                      placeholder="e.g., 4500"
+                      placeholder="e.g., 4500 (will show as Starting from ₹4,500)"
                       required 
                       value={formData.price}
                       onChange={e => setFormData({...formData, price: e.target.value})} 
