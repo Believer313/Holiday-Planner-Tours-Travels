@@ -88,7 +88,8 @@ const Footer = () => {
 
         {/* Bottom Row */}
         <div className="footer-bottom">
-          © {new Date().getFullYear()} Holiday Planner Tour & Travels. All Rights Reserved.
+          <p>© {new Date().getFullYear()} Holiday Planner Tour & Travels. All Rights Reserved.</p>
+          <p className="footer-developer">Designed & Developed by Asif Mondal</p>
         </div>
       </div>
     </footer>

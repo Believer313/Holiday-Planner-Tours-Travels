@@ -228,3 +228,9 @@
     width: fit-content;
   }
 }
+.footer-developer {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: rgba(199, 217, 223, 0.5);
+  font-style: italic;
+}
