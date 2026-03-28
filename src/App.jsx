@@ -1,4 +1,4 @@
-// src/App.jsx — FINAL VERSION (Revenue Dashboard + All Pages)
+// src/App.jsx — FIXED VERSION
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import React from "react";
 import HomePage from "./Landing_page/Home/HomePage";
@@ -16,13 +16,12 @@ import CreateTour from "./pages/CreateTour";
 import AdminBookings from "./pages/AdminBookings";
 import AdminUsers from "./pages/AdminUsers";
 import AdminRevenue from "./pages/AdminRevenue";
-import AdminAlbum from "./pages/AdminAlbum";
+import AdminAlbum from "./pages/AdminAlbum"; // ← Only one import
 import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import FactsAndFigures from "./components/ui/FactsAndFigure";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from "./pages/NotFound";
-import AdminAlbum from "./pages/AdminAlbum";
 
 // ─── WhatsApp Floating Button ────────────────────────────────────────────────
 const WhatsAppButton = () => (
@@ -108,19 +107,24 @@ const App = () => (
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/booking" element={<Booking />} />
+        
         {/* AUTH PAGES */}
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/signin" element={<AuthPage />} />
         <Route path="/signup" element={<AuthPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        
         {/* ADMIN DASHBOARD — FULLY PROTECTED */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/create-tour" element={<CreateTour />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/revenue" element={<AdminRevenue />} />
-        <Route path="/admin/album"element={<AdminAlbum />}/>
+        
+        {/* FIXED: Changed from /admin/album to /admin/gallery to match button */}
+        <Route path="/admin/gallery" element={<AdminAlbum />} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
