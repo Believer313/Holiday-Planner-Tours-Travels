@@ -16,11 +16,13 @@ import CreateTour from "./pages/CreateTour";
 import AdminBookings from "./pages/AdminBookings";
 import AdminUsers from "./pages/AdminUsers";
 import AdminRevenue from "./pages/AdminRevenue";
+import AdminAlbum from "./pages/AdminAlbum";
 import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import FactsAndFigures from "./components/ui/FactsAndFigure";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from "./pages/NotFound";
+import AdminAlbum from "./pages/AdminAlbum";
 
 // ─── WhatsApp Floating Button ────────────────────────────────────────────────
 const WhatsAppButton = () => (
@@ -118,6 +120,7 @@ const App = () => (
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/revenue" element={<AdminRevenue />} />
+        <Route path="/admin/album"element={<AdminAlbum />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
