@@ -17,6 +17,7 @@ import AdminBookings from "./pages/AdminBookings";
 import AdminUsers from "./pages/AdminUsers";
 import AdminRevenue from "./pages/AdminRevenue";
 import AdminAlbum from "./pages/AdminAlbum";
+import EditTour from "./pages/EditTour";
 import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import FactsAndFigures from "./components/ui/FactsAndFigure";
@@ -128,6 +129,7 @@ const App = () => (
         <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
         <Route path="/admin/revenue" element={<ProtectedRoute><AdminRevenue /></ProtectedRoute>} />
         <Route path="/admin/gallery" element={<ProtectedRoute><AdminAlbum /></ProtectedRoute>} />
+        <Route path="/admin/edit-tour/:id" element={<ProtectedRoute><EditTour /></ProtectedRoute>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
