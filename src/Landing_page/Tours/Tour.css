@@ -1185,3 +1185,19 @@
     height: 60px;
   }
 }
+.tour-price-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 2px;
+  opacity: 1;
+}
+
+.tour-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a3c34;
+}

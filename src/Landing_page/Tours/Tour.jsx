@@ -89,7 +89,7 @@ const Tour = () => {
                   {tour.shortDescription}
                 </p>
 
-                <p className="tour-price">₹{tour.price}</p>
+                <p className="tour-price"><span className="tour-price-label">Starting from</span> ₹{tour.price.toLocaleString()}</p>
 
                 <button
                   className="booking-button"
