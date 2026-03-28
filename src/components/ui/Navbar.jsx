@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { CgMenu, CgClose } from "react-icons/cg";
 import "./Navbar.css";
 
