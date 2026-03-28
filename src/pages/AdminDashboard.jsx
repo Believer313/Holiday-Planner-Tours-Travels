@@ -1,4 +1,4 @@
-// src/pages/AdminDashboard.jsx — FINAL 100% WORKING VERSION
+// src/pages/AdminDashboard.jsx — UPDATED with Gallery Button
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -16,7 +16,7 @@ export default function AdminDashboard() {
       alert('Access Denied. Only Admin can enter.');
       navigate('/');
     }
-  }, [user, navigate]); // ← Fixed: removed extra "navigate]);"
+  }, [user, navigate]);
 
   // Fetch all tours
   useEffect(() => {
@@ -74,6 +74,11 @@ export default function AdminDashboard() {
 
         <button className="btn-users" onClick={() => navigate('/admin/users')}>
           Manage Users
+        </button>
+
+        {/* NEW GALLERY MANAGEMENT BUTTON */}
+        <button className="btn-gallery" onClick={() => navigate('/admin/gallery')}>
+          📸 Manage Gallery
         </button>
       </div>
 
