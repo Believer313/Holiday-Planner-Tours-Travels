@@ -12,7 +12,7 @@ function GalleryPage() {
           <h1>Tour Gallery</h1>
           <p>Real moments captured from real journeys across India</p>
         </div>
-        <img src="/assets/Mountain_pointing.jpg" alt="Tour Gallery" className="gallery-banner-img" />
+        <img src="/assets/tea_garden.jpg" alt="Tour Gallery" className="gallery-banner-img" />
       </div>
       <Album />
     </div>
