@@ -1,0 +1,539 @@
+/* AdminGallery.css */
+
+/* ===== ADMIN DASHBOARD STYLES ===== */
+/* These styles extend your existing Gallery.css while maintaining the same look */
+
+/* Admin Action Buttons Container */
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.admin-add-photo-btn {
+  background: #022c22;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 99px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-add-photo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 44, 34, 0.3);
+  background: #034635;
+}
+
+.admin-add-section-btn {
+  background: #d4af37;
+  color: #022c22;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 99px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-add-section-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  background: #e0bc3a;
+}
+
+/* Message Toast */
+.admin-message {
+  text-align: center;
+  padding: 12px 20px;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 500;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-message.success {
+  background: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.admin-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+/* Filter Tab with Delete Button */
+.filter-tab-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.filter-delete-btn {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #dc3545;
+  color: white;
+  border: 2px solid white;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.filter-delete-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* Category Count Badge */
+.category-count {
+  margin-left: 6px;
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+/* Admin Card Overlay Actions */
+.admin-card-actions {
+  display: flex;
+  gap: 10px;
+  align-self: flex-end;
+}
+
+.admin-action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  border: none;
+  font-size: 1rem;
+  color: white;
+}
+
+.admin-action-icon:hover {
+  transform: scale(1.1);
+}
+
+.admin-action-icon.edit:hover {
+  background: #d4af37;
+}
+
+.admin-action-icon.delete:hover {
+  background: #dc3545;
+}
+
+/* Modal Styles - Reusing lightbox but with form styling */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.admin-modal-container {
+  background: white;
+  border-radius: 20px;
+  max-width: 550px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  cursor: default;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.admin-modal-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.admin-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.admin-modal-close:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+.admin-modal-body {
+  padding: 2rem;
+}
+
+/* Form Styles */
+.admin-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.admin-form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+}
+
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  background: #fff;
+}
+
+.admin-form-group input:focus,
+.admin-form-group select:focus,
+.admin-form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* File Upload Area */
+.admin-file-upload {
+  border: 2px dashed var(--color-border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #faf9f6;
+}
+
+.admin-file-upload:hover {
+  border-color: var(--color-secondary);
+  background: #fffef8;
+}
+
+.admin-file-upload-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.admin-file-upload p {
+  margin: 0;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.admin-file-upload small {
+  font-size: 0.8rem;
+  color: var(--color-muted-foreground);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.admin-preview-img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Modal Footer Buttons */
+.admin-modal-footer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.admin-btn-cancel {
+  padding: 10px 24px;
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-sans);
+  background: #f0f0f0;
+  border: none;
+  color: #666;
+}
+
+.admin-btn-cancel:hover {
+  background: #e0e0e0;
+}
+
+.admin-btn-submit {
+  padding: 10px 24px;
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-sans);
+  background: linear-gradient(135deg, var(--color-primary), #034635);
+  border: none;
+  color: white;
+}
+
+.admin-btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2, 44, 34, 0.3);
+}
+
+.admin-btn-submit-warning {
+  background: linear-gradient(135deg, #d4af37, #e0bc3a);
+  color: #022c22;
+}
+
+.admin-btn-submit-warning:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* Section Helper Text */
+.admin-section-helper {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+  .admin-modal-container {
+    max-width: 90%;
+    margin: 1rem;
+  }
+  
+  .admin-modal-body {
+    padding: 1.5rem;
+  }
+  
+  .admin-modal-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .admin-modal-footer {
+    padding: 1rem 1.5rem;
+  }
+  
+  .admin-file-upload {
+    padding: 1.5rem;
+  }
+}
+
+/* Stats Cards for Admin Dashboard */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-border);
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.admin-stat-icon {
+  font-size: 2.5rem;
+}
+
+.admin-stat-info h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.admin-stat-info p {
+  color: var(--color-muted-foreground);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Loading State */
+.admin-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-muted-foreground);
+}
+
+/* Confirmation Dialog Override */
+.admin-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animation for card actions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Make sure gallery card actions appear smoothly */
+.gallery-card:hover .admin-card-actions {
+  animation: fadeIn 0.2s ease;
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 640px) {
+  .admin-actions {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 1rem;
+  }
+  
+  .admin-add-photo-btn,
+  .admin-add-section-btn {
+    justify-content: center;
+  }
+  
+  .admin-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    padding: 0 1rem;
+  }
+  
+  .admin-stat-card {
+    padding: 1rem;
+  }
+  
+  .admin-stat-icon {
+    font-size: 1.5rem;
+  }
+  
+  .admin-stat-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .filter-delete-btn {
+    right: -4px;
+    top: -4px;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
+}
+
+/* Scrollbar for modal */
+.admin-modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-modal-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.admin-modal-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.admin-modal-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
