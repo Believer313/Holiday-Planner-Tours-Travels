@@ -14,14 +14,34 @@ export default function EditTour() {
     price: '',
     duration: '',
     groupSize: '',
+    experience: '',
     shortDescription: '',
     description: '',
     highlights: '',
-    includes: ''
+    includes: '',
+    excludes: '',
+    itinerary: '',
+    imageCover: ''
   });
   const [images, setImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
+
+  // Helper function to format arrays for textareas
+  const formatArray = (arr) => {
+    if (!arr) return '';
+    if (Array.isArray(arr)) return arr.join('\n');
+    return arr;
+  };
+
+  // Helper function to format itinerary for textarea
+  const formatItinerary = (itinerary) => {
+    if (!itinerary) return '';
+    if (Array.isArray(itinerary)) {
+      return itinerary.map(day => `${day.day}\n${day.title}\n${day.desc}`).join('\n\n');
+    }
+    return itinerary;
+  };
 
   // Fetch existing tour data
   useEffect(() => {
@@ -32,23 +52,26 @@ export default function EditTour() {
           headers: { Authorization: `Bearer ${token}` }
         });
         const tour = res.data;
+        
         setFormData({
           title: tour.title || '',
           destination: tour.destination || '',
           price: tour.price || '',
           duration: tour.duration || '',
           groupSize: tour.groupSize || '',
+          experience: tour.experience || '',
           shortDescription: tour.shortDescription || '',
           description: tour.description || '',
-          highlights: Array.isArray(tour.highlights)
-            ? tour.highlights.join('\n')
-            : tour.highlights || '',
-          includes: Array.isArray(tour.includes)
-            ? tour.includes.join('\n')
-            : tour.includes || '',
+          highlights: formatArray(tour.highlights),
+          includes: formatArray(tour.includes),
+          excludes: formatArray(tour.excludes),
+          itinerary: formatItinerary(tour.itinerary),
+          imageCover: tour.imageCover || ''
         });
+        
         setExistingImages(tour.images || []);
       } catch (err) {
+        console.error('Error fetching tour:', err);
         alert('Failed to load tour: ' + (err.response?.data?.message || err.message));
         navigate('/admin');
       } finally {
@@ -56,7 +79,14 @@ export default function EditTour() {
       }
     };
     fetchTour();
-  }, [id]);
+  }, [id, navigate]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -69,7 +99,15 @@ export default function EditTour() {
     e.preventDefault();
     setSaving(true);
     const data = new FormData();
-    Object.keys(formData).forEach(key => data.append(key, formData[key]));
+    
+    // Append all form fields
+    Object.keys(formData).forEach(key => {
+      if (formData[key]) {
+        data.append(key, formData[key]);
+      }
+    });
+    
+    // Append new images
     images.forEach(file => data.append('images', file));
 
     try {
@@ -83,6 +121,7 @@ export default function EditTour() {
       alert('Tour updated successfully!');
       navigate('/admin');
     } catch (err) {
+      console.error('Error updating tour:', err);
       alert('Error: ' + (err.response?.data?.message || err.message));
     } finally {
       setSaving(false);
@@ -91,8 +130,11 @@ export default function EditTour() {
 
   if (loading) {
     return (
-      <div style={{ padding: '100px', textAlign: 'center', fontFamily: 'Montserrat' }}>
-        Loading tour...
+      <div className="create-tour-page">
+        <div className="tour-loading">
+          <div className="tour-loading-spinner"></div>
+          <div className="tour-loading-text">Loading tour details...</div>
+        </div>
       </div>
     );
   }
@@ -136,46 +178,79 @@ export default function EditTour() {
                   <span className="gold-accent">Basic</span> Information
                 </h2>
                 <div className="form-group">
-                  <label className="form-label">Tour Title</label>
-                  <input type="text" className="form-input" required
+                  <label className="form-label">Tour Title *</label>
+                  <input 
+                    type="text" 
+                    name="title"
+                    className="form-input" 
+                    required
                     value={formData.title}
-                    onChange={e => setFormData({...formData, title: e.target.value})}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-row">
                   <div className="form-group">
-                    <label className="form-label">Destination</label>
-                    <input type="text" className="form-input" required
+                    <label className="form-label">Destination *</label>
+                    <input 
+                      type="text" 
+                      name="destination"
+                      className="form-input" 
+                      required
                       value={formData.destination}
-                      onChange={e => setFormData({...formData, destination: e.target.value})}
+                      onChange={handleChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Price (₹) — shown as "Starting from"</label>
-                    <input type="number" className="form-input" required
-                      placeholder="e.g., 4500 (will show as Starting from ₹4,500)"
+                    <label className="form-label">Price (₹) *</label>
+                    <input 
+                      type="number" 
+                      name="price"
+                      className="form-input" 
+                      required
                       value={formData.price}
-                      onChange={e => setFormData({...formData, price: e.target.value})}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label">Duration</label>
-                    <input type="text" className="form-input"
-                      placeholder="e.g., 3 Days / 2 Nights"
+                    <input 
+                      type="text" 
+                      name="duration"
+                      className="form-input"
+                      placeholder="e.g., 8 Days / 7 Nights"
                       value={formData.duration}
-                      onChange={e => setFormData({...formData, duration: e.target.value})}
+                      onChange={handleChange}
                     />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Group Size</label>
-                    <input type="text" className="form-input"
-                      placeholder="e.g., Max 12 Travelers"
+                    <input 
+                      type="text" 
+                      name="groupSize"
+                      className="form-input"
+                      placeholder="e.g., Max 15 Travelers"
                       value={formData.groupSize}
-                      onChange={e => setFormData({...formData, groupSize: e.target.value})}
+                      onChange={handleChange}
                     />
                   </div>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Experience Level</label>
+                  <select 
+                    name="experience"
+                    className="form-input"
+                    value={formData.experience}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Experience Level</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Luxury">Luxury</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Budget">Budget</option>
+                    <option value="Family">Family Friendly</option>
+                  </select>
                 </div>
               </div>
 
@@ -185,43 +260,81 @@ export default function EditTour() {
                   <span className="gold-accent">Tour</span> Description
                 </h2>
                 <div className="form-group">
-                  <label className="form-label">Short Description</label>
-                  <textarea className="form-textarea" rows="3"
+                  <label className="form-label">Short Description *</label>
+                  <textarea 
+                    name="shortDescription"
+                    className="form-textarea" 
+                    rows="3" 
+                    required
                     value={formData.shortDescription}
-                    onChange={e => setFormData({...formData, shortDescription: e.target.value})}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Full Description</label>
-                  <textarea className="form-textarea" rows="6" required
+                  <label className="form-label">Full Description *</label>
+                  <textarea 
+                    name="description"
+                    className="form-textarea" 
+                    rows="6" 
+                    required
                     value={formData.description}
-                    onChange={e => setFormData({...formData, description: e.target.value})}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
 
-              {/* Highlights & Includes */}
+              {/* Highlights & Inclusions */}
               <div className="create-tour-section">
                 <h2 className="create-tour-section-title">
-                  <span className="gold-accent">Highlights</span> & Inclusions
+                  <span className="gold-accent">Tour</span> Details
                 </h2>
                 <div className="form-group">
                   <label className="form-label">Tour Highlights</label>
-                  <textarea className="form-textarea" rows="5"
+                  <textarea 
+                    name="highlights"
+                    className="form-textarea" 
+                    rows="5"
                     placeholder="Enter each highlight on a new line"
                     value={formData.highlights}
-                    onChange={e => setFormData({...formData, highlights: e.target.value})}
+                    onChange={handleChange}
                   />
                   <span className="form-hint">Enter each highlight on a new line</span>
                 </div>
                 <div className="form-group">
                   <label className="form-label">What's Included</label>
-                  <textarea className="form-textarea" rows="5"
+                  <textarea 
+                    name="includes"
+                    className="form-textarea" 
+                    rows="5"
                     placeholder="Enter each inclusion on a new line"
                     value={formData.includes}
-                    onChange={e => setFormData({...formData, includes: e.target.value})}
+                    onChange={handleChange}
                   />
                   <span className="form-hint">Enter each inclusion on a new line</span>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">What's Excluded</label>
+                  <textarea 
+                    name="excludes"
+                    className="form-textarea" 
+                    rows="4"
+                    placeholder="Enter each exclusion on a new line"
+                    value={formData.excludes}
+                    onChange={handleChange}
+                  />
+                  <span className="form-hint">Enter each exclusion on a new line</span>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Day by Day Itinerary</label>
+                  <textarea 
+                    name="itinerary"
+                    className="form-textarea" 
+                    rows="10"
+                    placeholder="Day 1: Arrival & Orientation&#10;Description of day 1 activities...&#10;&#10;Day 2: Sightseeing&#10;Description of day 2 activities..."
+                    value={formData.itinerary}
+                    onChange={handleChange}
+                  />
+                  <span className="form-hint">Format: Day, Title, Description (separate each day with a blank line)</span>
                 </div>
               </div>
 
@@ -230,9 +343,23 @@ export default function EditTour() {
             {/* Right Sidebar */}
             <div className="create-tour-sidebar">
 
+              {/* Cover Image URL */}
+              <div className="create-tour-upload-card">
+                <h3 className="upload-card-title">Cover Image URL</h3>
+                <p className="upload-card-desc">Optional: Enter image URL for cover photo</p>
+                <input 
+                  type="text"
+                  name="imageCover"
+                  className="form-input"
+                  placeholder="https://example.com/cover-image.jpg"
+                  value={formData.imageCover}
+                  onChange={handleChange}
+                />
+              </div>
+
               {/* Existing Images */}
               {existingImages.length > 0 && (
-                <div className="create-tour-upload-card" style={{marginBottom: '1.5rem'}}>
+                <div className="create-tour-upload-card">
                   <h3 className="upload-card-title">Current Images</h3>
                   <div className="image-preview-grid">
                     {existingImages.map((src, index) => (
@@ -250,8 +377,12 @@ export default function EditTour() {
                 <h3 className="upload-card-title">Update Images</h3>
                 <p className="upload-card-desc">Upload new photos to replace existing ones</p>
                 <label className="image-upload-area">
-                  <input type="file" multiple accept="image/*"
-                    onChange={handleImageChange} className="hidden-input"
+                  <input 
+                    type="file" 
+                    multiple 
+                    accept="image/*"
+                    onChange={handleImageChange} 
+                    className="hidden-input"
                   />
                   <div className="upload-content">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -260,11 +391,11 @@ export default function EditTour() {
                       <line x1="12" y1="3" x2="12" y2="15"/>
                     </svg>
                     <span className="upload-text">Click to upload new images</span>
-                    <span className="upload-hint">PNG, JPG up to 10MB each</span>
+                    <span className="upload-hint">PNG, JPG up to 5MB each</span>
                   </div>
                 </label>
                 {imagePreview.length > 0 && (
-                  <div className="image-preview-grid" style={{marginTop: '1rem'}}>
+                  <div className="image-preview-grid">
                     {imagePreview.map((src, index) => (
                       <div key={index} className="image-preview-item">
                         <img src={src} alt={`Preview ${index + 1}`} />
