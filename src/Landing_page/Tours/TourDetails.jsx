@@ -35,17 +35,13 @@ const TourDetails = () => {
         "All permits and entry fees",
         "Professional wildlife guide"
       ],
-      excludes: [
-        "Airfare/train fare",
-        "Personal expenses",
-        "Travel insurance"
-      ],
+      excludes: ["Airfare/train fare", "Personal expenses", "Travel insurance"],
       itinerary: [
         { day: "Day 1", title: "Arrival & Orientation", desc: "Arrive at Godkhali jetty, board luxury houseboat, orientation safari" },
         { day: "Day 2", title: "Deep Forest Exploration", desc: "Full day safari, tiger tracking, visit to watchtowers" },
         { day: "Day 3", title: "Sunrise Safari & Departure", desc: "Early morning safari, brunch, departure" }
       ],
-      price: 4500,
+      price: 5000,
     },
     "sample-2": {
       _id: "sample-2",
@@ -71,18 +67,14 @@ const TourDetails = () => {
         "All entry fees and permits",
         "Local expert guide"
       ],
-      excludes: [
-        "Airfare/train fare",
-        "Personal expenses",
-        "Optional activities"
-      ],
+      excludes: ["Airfare/train fare", "Personal expenses", "Optional activities"],
       itinerary: [
         { day: "Day 1", title: "Arrival in Darjeeling", desc: "Transfer from NJP/Bagdogra, evening Mall Road walk" },
         { day: "Day 2", title: "Tiger Hill & Sightseeing", desc: "Sunrise at Tiger Hill, Batasia Loop, tea garden visit" },
         { day: "Day 3", title: "Monasteries & Adventure", desc: "Ghoom Monastery, toy train ride, rock garden" },
         { day: "Day 4", title: "Leisure & Departure", desc: "Morning at leisure, departure" }
       ],
-      price: 2500,
+      price: 7000,
     },
     "sample-3": {
       _id: "sample-3",
@@ -108,11 +100,7 @@ const TourDetails = () => {
         "Cultural performances",
         "Local tribal guide"
       ],
-      excludes: [
-        "Airfare/train fare",
-        "Personal expenses",
-        "Travel insurance"
-      ],
+      excludes: ["Airfare/train fare", "Personal expenses", "Travel insurance"],
       itinerary: [
         { day: "Day 1", title: "Arrival & Cultural Immersion", desc: "Arrive Purulia, evening Chhau dance performance" },
         { day: "Day 2", title: "Heritage & Adventure", desc: "Ayodhya Hills trek, temple visits, tribal village tour" },
@@ -130,7 +118,7 @@ const TourDetails = () => {
         const data = await res.json();
         setTour(data);
       } catch (err) {
-        console.error('Tour not found, showing sample:', err);
+        console.error("Tour not found, showing sample:", err);
         setTour(sampleTours[id]);
       } finally {
         setLoading(false);
@@ -173,15 +161,15 @@ const TourDetails = () => {
         <div className="tour-details-hero-content">
           <button className="tour-details-back" onClick={() => navigate("/tour")}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
+              <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Back to Tours
           </button>
           <div className="tour-details-hero-info">
             <span className="tour-details-location">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
               {tour.destination || tour.location || "India"}
             </span>
@@ -199,8 +187,8 @@ const TourDetails = () => {
             <div className="tour-quick-info">
               <div className="tour-quick-info-card">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
                 </svg>
                 <div>
                   <span className="label">Duration</span>
@@ -209,9 +197,9 @@ const TourDetails = () => {
               </div>
               <div className="tour-quick-info-card">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
                 <div>
                   <span className="label">Group Size</span>
@@ -220,7 +208,7 @@ const TourDetails = () => {
               </div>
               <div className="tour-quick-info-card">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
                 <div>
                   <span className="label">Experience</span>
@@ -247,8 +235,8 @@ const TourDetails = () => {
                   {tour.highlights.map((item, index) => (
                     <li key={index}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
                       {item}
                     </li>
@@ -287,7 +275,7 @@ const TourDetails = () => {
                   {tour.includes.map((item, index) => (
                     <div key={index} className="tour-includes-item">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="20 6 9 17 4 12"/>
+                        <polyline points="20 6 9 17 4 12" />
                       </svg>
                       {item}
                     </div>
@@ -306,8 +294,8 @@ const TourDetails = () => {
                   {tour.excludes.map((item, index) => (
                     <div key={index} className="tour-includes-item">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
                       {item}
                     </div>
@@ -332,22 +320,22 @@ const TourDetails = () => {
               <div className="tour-booking-features">
                 <div className="feature">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
                   </svg>
                   Flexible Dates
                 </div>
                 <div className="feature">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                   Free Cancellation
                 </div>
                 <div className="feature">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                   </svg>
                   24/7 Support
                 </div>
@@ -359,15 +347,15 @@ const TourDetails = () => {
               >
                 Book This Experience
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                  <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
 
               <p className="booking-note">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="12" y1="16" x2="12" y2="12"/>
-                  <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
                 Reserve now, pay later. Secure your spot today!
               </p>
@@ -379,7 +367,7 @@ const TourDetails = () => {
               <p>Our travel experts are here to assist you with any questions.</p>
               <a href="tel:+919907740169" className="contact-link">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72" />
                 </svg>
                 +91 9907740169
               </a>
