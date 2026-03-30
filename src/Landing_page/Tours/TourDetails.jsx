@@ -9,6 +9,8 @@ const TourDetails = () => {
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
 
+  // ===== SAMPLE TOURS (Commented out - kept for reference only) =====
+  /*
   const sampleTours = {
     "sample-1": {
       title: "Sunderban Expedition",
@@ -96,6 +98,7 @@ const TourDetails = () => {
       price: 5500,
     },
   };
+  */
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -105,7 +108,9 @@ const TourDetails = () => {
         const data = await res.json();
         setTour(data);
       } catch (err) {
-        setTour(sampleTours[id]);
+        // setTour(sampleTours[id]); // ← Commented out - no fallback to samples
+        console.error('Tour not found:', err);
+        setTour(null); // Show "Tour not found" message
       } finally {
         setLoading(false);
       }
@@ -198,7 +203,7 @@ const TourDetails = () => {
                 </svg>
                 <div>
                   <span className="label">Experience</span>
-                  <span className="value">Premium</span>
+                  <span className="value">{tour.experience || "Premium"}</span>
                 </div>
               </div>
             </div>
@@ -212,7 +217,7 @@ const TourDetails = () => {
             </div>
 
             {/* Highlights */}
-            {tour.highlights && (
+            {tour.highlights && tour.highlights.length > 0 && (
               <div className="tour-details-section">
                 <h2 className="tour-details-section-title">
                   <span className="gold-accent">Tour</span> Highlights
@@ -232,7 +237,7 @@ const TourDetails = () => {
             )}
 
             {/* Itinerary */}
-            {tour.itinerary && (
+            {tour.itinerary && tour.itinerary.length > 0 && (
               <div className="tour-details-section">
                 <h2 className="tour-details-section-title">
                   <span className="gold-accent">Day by Day</span> Itinerary
@@ -252,7 +257,7 @@ const TourDetails = () => {
             )}
 
             {/* What's Included */}
-            {tour.includes && (
+            {tour.includes && tour.includes.length > 0 && (
               <div className="tour-details-section">
                 <h2 className="tour-details-section-title">
                   <span className="gold-accent">What's</span> Included
@@ -262,6 +267,26 @@ const TourDetails = () => {
                     <div key={index} className="tour-includes-item">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* What's Excluded */}
+            {tour.excludes && tour.excludes.length > 0 && (
+              <div className="tour-details-section">
+                <h2 className="tour-details-section-title">
+                  <span className="gold-accent">What's</span> Excluded
+                </h2>
+                <div className="tour-includes-grid">
+                  {tour.excludes.map((item, index) => (
+                    <div key={index} className="tour-includes-item">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
                       </svg>
                       {item}
                     </div>
@@ -308,16 +333,10 @@ const TourDetails = () => {
               </div>
 
               <button
-                className={`booking-button-large ${id?.startsWith("sample-") ? "coming-soon" : ""}`}
-                onClick={() => {
-                  if (id?.startsWith("sample-")) {
-                    alert("Booking will open soon!");
-                  } else {
-                    navigate(`/booking?tourId=${id}`);
-                  }
-                }}
+                className="booking-button-large"
+                onClick={() => navigate(`/booking?tourId=${id}`)}
               >
-                {id?.startsWith("sample-") ? "Coming Soon" : "Book This Experience"}
+                Book This Experience
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -337,11 +356,11 @@ const TourDetails = () => {
             <div className="tour-contact-card">
               <h4>Need Help?</h4>
               <p>Our travel experts are here to assist you with any questions.</p>
-              <a href="tel:+919876543210" className="contact-link">
+              <a href="tel:+919907740169" className="contact-link">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
                 </svg>
-                +91 98765 43210
+                +91 9907740169
               </a>
             </div>
           </div>
