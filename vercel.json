@@ -9,6 +9,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/tour/:path*",
+      "destination": "/index.html"
+    },
+    {
       "source": "/about",
       "destination": "/index.html"
     },
@@ -29,12 +33,27 @@
       "destination": "/index.html"
     },
     {
+      "source": "/signin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/index.html"
+    },
+    {
       "source": "/forgot-password",
       "destination": "/index.html"
     },
     {
       "source": "/reset-password/:token",
       "destination": "/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite"
 }
