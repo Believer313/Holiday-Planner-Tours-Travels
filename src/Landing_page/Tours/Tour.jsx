@@ -116,7 +116,9 @@ const Tour = () => {
                     {tour.experience}
                   </div>
                 )}
-                <div className="tour-card-price-tag">
+                  <div className="tour-card-price-tag">
+    <span className="price-label-small">Starting from</span>
+    <span className="price-amount">
                   ₹{tour.price?.toLocaleString()}
                 </div>
               </div>
