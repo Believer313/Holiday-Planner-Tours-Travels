@@ -69,7 +69,11 @@ const Tour = () => {
     return (
       <section className="tour-section">
         <div className="tour-container">
-          <h2 className="tour-title">Explore Our Tours</h2>
+          <div className="tour-section-header">
+            <span className="tour-section-label">Discover</span>
+            <h2 className="tour-title">Explore Our Tours</h2>
+            <p className="tour-section-desc">Handcrafted journeys to India's most beautiful destinations</p>
+          </div>
           <div className="tour-empty-state">
             <p>No tours available at the moment. Please check back soon!</p>
           </div>
@@ -150,6 +154,12 @@ const Tour = () => {
                       {tour.groupSize}
                     </div>
                   )}
+                </div>
+
+                {/* Price with "Starting from" text */}
+                <div className="tour-price-wrapper">
+                  <span className="tour-price-label">Starting from</span>
+                  <p className="tour-price">₹{tour.price?.toLocaleString()}</p>
                 </div>
 
                 <button
