@@ -9,14 +9,16 @@ const TourDetails = () => {
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
 
-  // ===== SAMPLE TOURS (Commented out - kept for reference only) =====
-  /*
+  // ===== SAMPLE TOURS =====
   const sampleTours = {
     "sample-1": {
+      _id: "sample-1",
       title: "Sunderban Expedition",
+      destination: "Sundarbans, West Bengal",
       location: "Sundarbans, West Bengal",
       duration: "3 Days / 2 Nights",
       groupSize: "Max 12 Travelers",
+      experience: "Premium",
       images: ["/assets/Tiger.png"],
       description: "Embark on an extraordinary journey through the world's largest mangrove forest, home to the legendary Royal Bengal Tiger. This curated expedition offers an immersive experience into one of nature's most unique ecosystems.",
       highlights: [
@@ -33,6 +35,11 @@ const TourDetails = () => {
         "All permits and entry fees",
         "Professional wildlife guide"
       ],
+      excludes: [
+        "Airfare/train fare",
+        "Personal expenses",
+        "Travel insurance"
+      ],
       itinerary: [
         { day: "Day 1", title: "Arrival & Orientation", desc: "Arrive at Godkhali jetty, board luxury houseboat, orientation safari" },
         { day: "Day 2", title: "Deep Forest Exploration", desc: "Full day safari, tiger tracking, visit to watchtowers" },
@@ -41,10 +48,13 @@ const TourDetails = () => {
       price: 4500,
     },
     "sample-2": {
+      _id: "sample-2",
       title: "Darjeeling Retreat",
+      destination: "Darjeeling, West Bengal",
       location: "Darjeeling, West Bengal",
       duration: "4 Days / 3 Nights",
       groupSize: "Max 10 Travelers",
+      experience: "Premium",
       images: ["/assets/Kanchenjunga.jpg"],
       description: "Experience the magic of the Queen of Hills with breathtaking Himalayan views, world-famous tea gardens, and rich colonial heritage. A perfect blend of adventure and relaxation.",
       highlights: [
@@ -61,6 +71,11 @@ const TourDetails = () => {
         "All entry fees and permits",
         "Local expert guide"
       ],
+      excludes: [
+        "Airfare/train fare",
+        "Personal expenses",
+        "Optional activities"
+      ],
       itinerary: [
         { day: "Day 1", title: "Arrival in Darjeeling", desc: "Transfer from NJP/Bagdogra, evening Mall Road walk" },
         { day: "Day 2", title: "Tiger Hill & Sightseeing", desc: "Sunrise at Tiger Hill, Batasia Loop, tea garden visit" },
@@ -70,10 +85,13 @@ const TourDetails = () => {
       price: 2500,
     },
     "sample-3": {
+      _id: "sample-3",
       title: "Purulia Heritage",
+      destination: "Purulia, West Bengal",
       location: "Purulia, West Bengal",
       duration: "3 Days / 2 Nights",
       groupSize: "Max 15 Travelers",
+      experience: "Premium",
       images: ["/assets/purulia.jpg"],
       description: "Discover the cultural heartland of Bengal with ancient temples, vibrant tribal traditions, and the mesmerizing Chhau dance. An authentic journey into rural India's rich heritage.",
       highlights: [
@@ -90,6 +108,11 @@ const TourDetails = () => {
         "Cultural performances",
         "Local tribal guide"
       ],
+      excludes: [
+        "Airfare/train fare",
+        "Personal expenses",
+        "Travel insurance"
+      ],
       itinerary: [
         { day: "Day 1", title: "Arrival & Cultural Immersion", desc: "Arrive Purulia, evening Chhau dance performance" },
         { day: "Day 2", title: "Heritage & Adventure", desc: "Ayodhya Hills trek, temple visits, tribal village tour" },
@@ -98,7 +121,6 @@ const TourDetails = () => {
       price: 5500,
     },
   };
-  */
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -108,9 +130,8 @@ const TourDetails = () => {
         const data = await res.json();
         setTour(data);
       } catch (err) {
-        // setTour(sampleTours[id]); // ← Commented out - no fallback to samples
-        console.error('Tour not found:', err);
-        setTour(null); // Show "Tour not found" message
+        console.error('Tour not found, showing sample:', err);
+        setTour(sampleTours[id]);
       } finally {
         setLoading(false);
       }
@@ -144,7 +165,7 @@ const TourDetails = () => {
       {/* Hero Section */}
       <section className="tour-details-hero">
         <img
-          src={tour.images?.[activeImage] || "/assets/Tiger.png"}
+          src={tour.images?.[activeImage] || tour.imageCover || "/assets/Tiger.png"}
           alt={tour.title}
           className="tour-details-hero-image"
         />
@@ -162,7 +183,7 @@ const TourDetails = () => {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                 <circle cx="12" cy="10" r="3"/>
               </svg>
-              {tour.location || "India"}
+              {tour.destination || tour.location || "India"}
             </span>
             <h1 className="tour-details-title">{tour.title}</h1>
           </div>

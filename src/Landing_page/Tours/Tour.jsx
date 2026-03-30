@@ -6,35 +6,30 @@ const Tour = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ===== SAMPLE TOURS (Commented out - kept for reference only) =====
-  /*
+  // ===== SAMPLE TOURS =====
   const sampleTours = [
     {
       _id: "sample-1",
       title: "Sunderban Trip",
       images: ["/assets/Tiger.png"],
-      shortDescription:
-        "Explore mystical mangroves and spot the Royal Bengal Tiger.",
+      shortDescription: "Explore mystical mangroves and spot the Royal Bengal Tiger.",
       price: 4500,
     },
     {
       _id: "sample-2",
       title: "Darjeeling Trip",
       images: ["/assets/Kanchenjunga.jpg"],
-      shortDescription:
-        "Witness breathtaking sunrises and world-famous tea gardens.",
+      shortDescription: "Witness breathtaking sunrises and world-famous tea gardens.",
       price: 2500,
     },
     {
       _id: "sample-3",
       title: "Purulia Trip",
       images: ["/assets/purulia.jpg"],
-      shortDescription:
-        "Experience tribal culture and mesmerizing Chhau dance.",
+      shortDescription: "Experience tribal culture and mesmerizing Chhau dance.",
       price: 5500,
     },
   ];
-  */
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -42,12 +37,12 @@ const Tour = () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/tours`);
         if (!res.ok) throw new Error();
         const data = await res.json();
-        // Only show database tours, no samples
-        setTours(data);
+        // Show sample tours + database tours
+        setTours([...sampleTours, ...data]);
       } catch (err) {
         console.error('Failed to fetch tours:', err);
-        // Show empty array on error - no sample tours
-        setTours([]);
+        // Show only sample tours on error
+        setTours(sampleTours);
       } finally {
         setLoading(false);
       }
@@ -103,9 +98,7 @@ const Tour = () => {
                   src={tour.images?.[0] || tour.imageCover || "/assets/Tiger.png"}
                   alt={tour.title}
                   className="tour-image"
-                  onError={(e) =>
-                    (e.target.src = "/assets/Tiger.png")
-                  }
+                  onError={(e) => (e.target.src = "/assets/Tiger.png")}
                 />
                 <div className="tour-card-overlay"></div>
                 {tour.experience && (
@@ -116,10 +109,9 @@ const Tour = () => {
                     {tour.experience}
                   </div>
                 )}
-                  <div className="tour-card-price-tag">
-    <span className="price-label-small">Starting from</span>
-    <span className="price-amount">
-                  ₹{tour.price?.toLocaleString()}
+                <div className="tour-card-price-tag">
+                  <span className="price-label-small">Starting from</span>
+                  <span className="price-amount">₹{tour.price?.toLocaleString()}</span>
                 </div>
               </div>
 
