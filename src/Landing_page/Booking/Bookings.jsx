@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Bookings = () => {
   const [formData, setFormData] = useState({
@@ -14,15 +14,34 @@ const Bookings = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [destinations, setDestinations] = useState([]);
+  const [fetchingDestinations, setFetchingDestinations] = useState(true);
 
-  const destinations = [
-    "Sundarbans",
-    "Darjeeling",
-    "Purulia",
-    "Mumbai",
-    "Goa",
-    "Kerala Backwaters",
-  ];
+  // Fetch tours from database for destinations
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tours`);
+        if (!response.ok) throw new Error();
+        const tours = await response.json();
+        // Extract tour titles as destinations
+        const tourDestinations = tours.map(tour => tour.title);
+        setDestinations(tourDestinations);
+      } catch (err) {
+        console.error("Failed to fetch destinations:", err);
+        // Fallback to default destinations if API fails
+        setDestinations([
+          "Sundarbans Expedition",
+          "Darjeeling Retreat",
+          "Purulia Heritage",
+          "Kashmir Paradise Tour"
+        ]);
+      } finally {
+        setFetchingDestinations(false);
+      }
+    };
+    fetchDestinations();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,6 +89,15 @@ const Bookings = () => {
 
   /* min date = today so past dates cannot be selected */
   const today = new Date().toISOString().split("T")[0];
+
+  if (fetchingDestinations) {
+    return (
+      <div className="booking-loading-destinations">
+        <div className="booking-loading-spinner"></div>
+        <p>Loading destinations...</p>
+      </div>
+    );
+  }
 
   return (
     <>
