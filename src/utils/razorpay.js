@@ -13,7 +13,7 @@ export const loadRazorpayScript = () => {
   });
 };
 
-export const initiateTestPayment = async (amount, bookingId, userDetails) => {
+export const initiatePayment = async (amount, bookingId, userDetails) => {
   const isLoaded = await loadRazorpayScript();
   
   if (!isLoaded) {
@@ -26,7 +26,7 @@ export const initiateTestPayment = async (amount, bookingId, userDetails) => {
     key: "rzp_test_YNjVZt3yQkYgPx", // Razorpay public test key
     amount: amount * 100, // Amount in paise
     currency: "INR",
-    name: "Holiday Planner",
+    name: "Holiday Planner Tours and Travels",
     description: `Booking for ${bookingId}`,
     image: "/favicon.ico",
     handler: function(response) {
