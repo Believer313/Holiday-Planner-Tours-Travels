@@ -55,7 +55,6 @@ const Bookings = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    setShowPayment(false);
 
     try {
       const response = await fetch(
@@ -71,8 +70,8 @@ const Bookings = () => {
 
       if (response.ok) {
         setBookingId(data.bookingId || Date.now().toString());
-        setMessage(`✅ Booking request received! Would you like to make an online payment?`);
-        setShowPayment(true);
+        setMessage(`✅ Booking confirmed for ${formData.name}!`);
+        setShowPayment(true);  // ← THIS SHOWS THE PAYMENT BUTTON
         setBookingSuccess(true);
       } else {
         setError(data.message || "Something went wrong. Please try again.");
@@ -87,9 +86,9 @@ const Bookings = () => {
 
   const handlePayment = async () => {
     setPaymentLoading(true);
-    const amount = 1000; // ₹1000 advance payment (you can calculate based on tour)
+    const amount = 1000; // ₹1000 advance payment
     
-    const paymentSuccess = await initiatePayment(amount, bookingId, {
+    await initiatePayment(amount, bookingId, {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
@@ -137,7 +136,6 @@ const Bookings = () => {
       {error && <div className="error-message">{error}</div>}
 
       <form onSubmit={handleSubmit} className="booking-form-inner">
-
         <div className="booking-trust">
           <span>✓ Free Cancellation</span>
           <span>✓ Secure Booking</span>
@@ -207,7 +205,7 @@ const Bookings = () => {
                 fontWeight: 'bold'
               }}
             >
-              {paymentLoading ? "Processing..." : "💳 Pay Online (Test Mode)"}
+              {paymentLoading ? "Processing..." : "💳 Pay Online (Test Mode) - ₹1,000"}
             </button>
             <button 
               type="button" 
@@ -235,13 +233,11 @@ const Bookings = () => {
           </a>
         </p>
 
-        {/* Test Mode Note for Project */}
         {showPayment && (
           <p style={{ fontSize: '12px', color: '#666', textAlign: 'center', marginTop: '10px' }}>
             🔧 Test Mode: Use card 4111 1111 1111 1111 | Exp: 12/30 | CVV: 111
           </p>
         )}
-
       </form>
     </>
   );
