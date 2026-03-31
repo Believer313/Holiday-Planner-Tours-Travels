@@ -1,0 +1,29 @@
+# https://www.holidayplannertourtravel.org/robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /signin/
+Disallow: /signup/
+Disallow: /reset-password/
+Disallow: /forgot-password/
+
+# Sitemap location
+Sitemap: https://www.holidayplannertourtravel.org/sitemap.xml
+
+# Crawl delay for search engines
+Crawl-delay: 1
+
+# Host directive
+Host: https://www.holidayplannertourtravel.org
+
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bingbot specific
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
