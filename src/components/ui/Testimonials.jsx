@@ -178,23 +178,7 @@ const Testimonials = () => {
           ))}
         </div>
 
-        {/* Stats */}
-        <div className="testimonials-stats">
-          <div className="testimonials-stat">
-            <span className="stat-number">5,000+</span>
-            <span className="stat-label">Happy Travelers</span>
-          </div>
-          <div className="testimonials-stat-divider" />
-          <div className="testimonials-stat">
-            <span className="stat-number">4.9★</span>
-            <span className="stat-label">Average Rating</span>
-          </div>
-          <div className="testimonials-stat-divider" />
-          <div className="testimonials-stat">
-            <span className="stat-number">100+</span>
-            <span className="stat-label">Tours Completed</span>
-          </div>
-        </div>
+        {/* Stats Section - REMOVED because you have separate FactsAndFigures component */}
 
       </div>
     </section>
