@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { initiatePayment } from "../../utils/razorpay";
 
 const Bookings = () => {
   const [formData, setFormData] = useState({
@@ -12,10 +13,14 @@ const Bookings = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [destinations, setDestinations] = useState([]);
   const [fetchingDestinations, setFetchingDestinations] = useState(true);
+  const [showPayment, setShowPayment] = useState(false);
+  const [bookingId, setBookingId] = useState(null);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   // Fetch tours from database for destinations
   useEffect(() => {
@@ -24,12 +29,10 @@ const Bookings = () => {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/tours`);
         if (!response.ok) throw new Error();
         const tours = await response.json();
-        // Extract tour titles as destinations
         const tourDestinations = tours.map(tour => tour.title);
         setDestinations(tourDestinations);
       } catch (err) {
         console.error("Failed to fetch destinations:", err);
-        // Fallback to default destinations if API fails
         setDestinations([
           "Sundarbans Expedition",
           "Darjeeling Retreat",
@@ -52,6 +55,7 @@ const Bookings = () => {
     setLoading(true);
     setMessage("");
     setError("");
+    setShowPayment(false);
 
     try {
       const response = await fetch(
@@ -66,16 +70,10 @@ const Bookings = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(`Thank you ${formData.name}! Your booking request for ${formData.destination} has been received. We will call you within 2 hours at ${formData.phone}.`);
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          destination: "",
-          travelDate: "",
-          travelers: "",
-          specialRequests: "",
-        });
+        setBookingId(data.bookingId || Date.now().toString());
+        setMessage(`✅ Booking request received! Would you like to make an online payment?`);
+        setShowPayment(true);
+        setBookingSuccess(true);
       } else {
         setError(data.message || "Something went wrong. Please try again.");
       }
@@ -87,7 +85,36 @@ const Bookings = () => {
     }
   };
 
-  /* min date = today so past dates cannot be selected */
+  const handlePayment = async () => {
+    setPaymentLoading(true);
+    const amount = 1000; // ₹1000 advance payment (you can calculate based on tour)
+    
+    const paymentSuccess = await initiatePayment(amount, bookingId, {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      destination: formData.destination
+    });
+    
+    setPaymentLoading(false);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      destination: "",
+      travelDate: "",
+      travelers: "",
+      specialRequests: "",
+    });
+    setMessage("");
+    setShowPayment(false);
+    setBookingSuccess(false);
+    setBookingId(null);
+  };
+
   const today = new Date().toISOString().split("T")[0];
 
   if (fetchingDestinations) {
@@ -111,7 +138,6 @@ const Bookings = () => {
 
       <form onSubmit={handleSubmit} className="booking-form-inner">
 
-        {/* Trust badges */}
         <div className="booking-trust">
           <span>✓ Free Cancellation</span>
           <span>✓ Secure Booking</span>
@@ -160,9 +186,47 @@ const Bookings = () => {
           <textarea name="specialRequests" placeholder="Any special requirements, dietary needs, etc." value={formData.specialRequests} onChange={handleChange} rows="3" />
         </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Submitting..." : "Book Now →"}
-        </button>
+        {!showPayment ? (
+          <button type="submit" disabled={loading}>
+            {loading ? "Submitting..." : "Book Now →"}
+          </button>
+        ) : (
+          <div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+            <button 
+              type="button" 
+              onClick={handlePayment} 
+              disabled={paymentLoading}
+              style={{
+                background: '#064e3b',
+                color: 'white',
+                padding: '14px 24px',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: paymentLoading ? 'not-allowed' : 'pointer',
+                fontSize: '16px',
+                fontWeight: 'bold'
+              }}
+            >
+              {paymentLoading ? "Processing..." : "💳 Pay Online (Test Mode)"}
+            </button>
+            <button 
+              type="button" 
+              onClick={resetForm}
+              style={{
+                background: '#d4af37',
+                color: '#064e3b',
+                padding: '14px 24px',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                fontWeight: 'bold'
+              }}
+            >
+              Book Another Tour
+            </button>
+          </div>
+        )}
 
         <p className="booking-form-note">
           Prefer instant confirmation?{" "}
@@ -170,6 +234,13 @@ const Bookings = () => {
             WhatsApp us →
           </a>
         </p>
+
+        {/* Test Mode Note for Project */}
+        {showPayment && (
+          <p style={{ fontSize: '12px', color: '#666', textAlign: 'center', marginTop: '10px' }}>
+            🔧 Test Mode: Use card 4111 1111 1111 1111 | Exp: 12/30 | CVV: 111
+          </p>
+        )}
 
       </form>
     </>
