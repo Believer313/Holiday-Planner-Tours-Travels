@@ -1,6 +1,6 @@
 // src/pages/AdminRevenue.jsx
-import React
-import AdminBackButton from './AdminBackButton';, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import AdminBackButton from './AdminBackButton';
 import axios from 'axios';
 import { LineChart, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import CountUp from 'react-countup';

@@ -1,6 +1,6 @@
 // src/pages/AdminBookings.jsx
-import React
-import AdminBackButton from './AdminBackButton';, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import AdminBackButton from './AdminBackButton';
 import axios from 'axios';
 import './AdminBookings.css';
 
