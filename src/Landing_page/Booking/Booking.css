@@ -298,32 +298,31 @@ body {
   padding: 8px;
 }
 
-/* Fix for date input calendar icon visibility */
+/* ===============================
+   DATE INPUT FIX
+   =============================== */
 .booking-form-inner input[type="date"] {
-  color-scheme: dark;
+  color-scheme: light;
   position: relative;
   color: #1a3c34;
   font-weight: 500;
+  padding-right: 42px; /* prevents text from colliding with the icon */
 }
 
-/* Custom styling for date picker icon - MAKES IT VISIBLE */
 .booking-form-inner input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: #d4af37;
-  padding: 6px;
+  padding: 5px;
   border-radius: 6px;
   cursor: pointer;
-  filter: invert(0);
   opacity: 1;
+  position: absolute;
+  right: 8px; /* pins icon away from the border */
+  margin-right: 0;
 }
 
 .booking-form-inner input[type="date"]::-webkit-calendar-picker-indicator:hover {
   background-color: #e9c46a;
   transform: scale(1.05);
-}
-
-/* For Firefox date picker */
-.booking-form-inner input[type="date"] {
-  color: #1a3c34;
 }
 
 /* Placeholder styling for date input when empty */
@@ -500,24 +499,25 @@ body {
   .booking-trust span {
     font-size: 0.72rem;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
+
   .booking-form-inner select {
     font-size: 0.9rem;
     padding: 10px 12px;
   }
-  
-  /* Better visibility for date picker on mobile */
+
   .booking-form-inner input[type="date"] {
     font-size: 0.9rem;
+    padding-right: 42px; /* keep the fix on mobile too */
   }
-  
+
   .booking-form-inner input[type="date"]::-webkit-calendar-picker-indicator {
-    padding: 6px;
+    padding: 5px;
+    right: 8px;
   }
 }
 
