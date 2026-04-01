@@ -1,5 +1,6 @@
 // src/pages/AdminUsers.jsx
-import React, { useState, useEffect } from 'react';
+import React
+import AdminBackButton from './AdminBackButton';, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AdminUsers.css';
@@ -67,6 +68,7 @@ export default function AdminUsers() {
 
   return (
     <div className="admin-container">
+      <AdminBackButton label="Back to Dashboard" />
       <div className="admin-header">
         <h1>Users Management</h1>
         <p>Total Users: {users.length} | Admins: {users.filter(u => u.role === 'admin').length}</p>

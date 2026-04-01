@@ -1,5 +1,6 @@
 // AdminAlbum.jsx (updated with CSS classes)
-import React, { useState, useEffect } from "react";
+import React
+import AdminBackButton from './AdminBackButton';, { useState, useEffect } from "react";
 import "./AdminGallery.css"; // Import the separate CSS file
 
 function AdminAlbum() {
