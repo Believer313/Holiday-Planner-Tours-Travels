@@ -34,14 +34,15 @@ export default function AdminDashboard() {
         const bookingsRes = await axios.get(`${import.meta.env.VITE_API_URL}/bookings`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setBookings(bookingsRes.data);
-        const totalRevenue = bookingsRes.data
+        const bookingsData = Array.isArray(bookingsRes.data) ? bookingsRes.data : bookingsRes.data.bookings || bookingsRes.data.data || [];
+        setBookings(bookingsData);
+        const totalRevenue = bookingsData
           .filter(b => b.status === 'confirmed')
           .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
         setStats({
           totalTours: toursRes.data.length,
-          totalBookings: bookingsRes.data.length,
-          totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id).filter(Boolean))].length,
+          totalBookings: bookingsData.length,
+          totalUsers: [...new Set(bookingsData.map(b => b.user?._id).filter(Boolean))].length,
           totalRevenue
         });
       } catch (err) {
