@@ -75,94 +75,10 @@ export default function AdminDashboard() {
     navigate('/login');
   };
 
-  if (loading) return <div className="loading">Loading Dashboard.
-
-clear
-clear
-cat > src/pages/AdminDashboard.jsx << 'EOF'
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './AdminDashboard.css';
-
-export default function AdminDashboard() {
-  const [tours, setTours] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({
-    totalTours: 0,
-    totalBookings: 0,
-    totalUsers: 0,
-    totalRevenue: 0
-  });
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-
-  useEffect(() => {
-    if (user.role !== 'admin') {
-      alert('Access Denied. Only Admin can enter.');
-      navigate('/');
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const toursRes = await axios.get(`${import.meta.env.VITE_API_URL}/tours`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setTours(toursRes.data);
-        const bookingsRes = await axios.get(`${import.meta.env.VITE_API_URL}/bookings`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setBookings(bookingsRes.data);
-        const totalRevenue = bookingsRes.data
-          .filter(b => b.status === 'confirmed')
-          .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
-        setStats({
-          totalTours: toursRes.data.length,
-          totalBookings: bookingsRes.data.length,
-          totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id).filter(Boolean))].length,
-          totalRevenue
-        });
-      } catch (err) {
-        console.error('Failed to load data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const handleDelete = async (id) => {
-    if (!window.confirm('Delete this tour permanently?')) return;
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`${import.meta.env.VITE_API_URL}/tours/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setTours(tours.filter(t => t._id !== id));
-      setStats(prev => ({ ...prev, totalTours: prev.totalTours - 1 }));
-      alert('Tour deleted successfully!');
-    } catch (err) {
-      alert('Error deleting tour');
-    }
-  };
-
-  const handleLogout = () => {
-    if (!window.confirm('Are you sure you want to logout?')) return;
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
   if (loading) return <div className="loading">Loading Dashboard...</div>;
 
   return (
     <div className="admin-container">
-
-      {/* HEADER */}
       <div className="admin-header">
         <div className="admin-header-left">
           <h1>Admin Dashboard</h1>
@@ -176,7 +92,6 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* STATS CARDS */}
       <div className="admin-stats">
         <div className="stat-card">
           <div className="stat-icon">🗺️</div>
@@ -208,7 +123,6 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* QUICK ACTION BUTTONS */}
       <div className="dashboard-actions">
         <button className="btn-primary" onClick={() => navigate('/admin/create-tour')}>
           ✨ + Add New Tour
@@ -224,7 +138,6 @@ export default function AdminDashboard() {
         </button>
       </div>
 
-      {/* TOURS TABLE */}
       <div className="section">
         <p className="section-title">All Tours ({tours.length})</p>
         <div className="table-container">
