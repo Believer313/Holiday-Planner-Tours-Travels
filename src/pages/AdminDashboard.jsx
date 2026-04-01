@@ -1,4 +1,3 @@
-// src/pages/AdminDashboard.jsx — UPDATED with Gallery Button
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,7 +5,14 @@ import './AdminDashboard.css';
 
 export default function AdminDashboard() {
   const [tours, setTours] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({
+    totalTours: 0,
+    totalBookings: 0,
+    totalUsers: 0,
+    totalRevenue: 0
+  });
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -18,22 +24,42 @@ export default function AdminDashboard() {
     }
   }, [user, navigate]);
 
-  // Fetch all tours
+  // Fetch all data
   useEffect(() => {
-    const fetchTours = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/tours`, {
+        
+        // Fetch tours
+        const toursRes = await axios.get(`${import.meta.env.VITE_API_URL}/tours`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setTours(res.data);
+        setTours(toursRes.data);
+        
+        // Fetch bookings
+        const bookingsRes = await axios.get(`${import.meta.env.VITE_API_URL}/bookings`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setBookings(bookingsRes.data);
+        
+        // Calculate stats
+        const totalRevenue = bookingsRes.data
+          .filter(b => b.status === 'confirmed')
+          .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+        
+        setStats({
+          totalTours: toursRes.data.length,
+          totalBookings: bookingsRes.data.length,
+          totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id))].length,
+          totalRevenue: totalRevenue
+        });
       } catch (err) {
-        console.error('Failed to load tours:', err);
+        console.error('Failed to load data:', err);
       } finally {
         setLoading(false);
       }
     };
-    fetchTours();
+    fetchData();
   }, []);
 
   const handleDelete = async (id) => {
@@ -44,6 +70,7 @@ export default function AdminDashboard() {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTours(tours.filter(t => t._id !== id));
+      setStats({ ...stats, totalTours: stats.totalTours - 1 });
       alert('Tour deleted successfully!');
     } catch (err) {
       alert('Error deleting tour');
@@ -58,27 +85,55 @@ export default function AdminDashboard() {
     <div className="admin-container">
       {/* HEADER */}
       <div className="admin-header">
-        <h1>Prince (ADMIN) Dashboard</h1>
+        <h1>Admin Dashboard</h1>
         <p>Welcome back, <strong>{user.name || 'Admin'}</strong> — You control everything</p>
+      </div>
+
+      {/* STATS CARDS */}
+      <div className="admin-stats">
+        <div className="stat-card">
+          <div className="stat-icon">📊</div>
+          <div className="stat-info">
+            <h3>{stats.totalTours}</h3>
+            <p>Total Tours</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon">📅</div>
+          <div className="stat-info">
+            <h3>{stats.totalBookings}</h3>
+            <p>Total Bookings</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon">👥</div>
+          <div className="stat-info">
+            <h3>{stats.totalUsers}</h3>
+            <p>Happy Travelers</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon">💰</div>
+          <div className="stat-info">
+            <h3>₹{stats.totalRevenue.toLocaleString()}</h3>
+            <p>Total Revenue</p>
+          </div>
+        </div>
       </div>
 
       {/* QUICK ACTION BUTTONS */}
       <div className="dashboard-actions">
         <button className="btn-primary" onClick={() => navigate('/admin/create-tour')}>
-          + Add New Tour
+          ✨ + Add New Tour
         </button>
-
         <button className="btn-bookings" onClick={() => navigate('/admin/bookings')}>
-          All Bookings
+          📋 All Bookings
         </button>
-
         <button className="btn-users" onClick={() => navigate('/admin/users')}>
-          Manage Users
+          👥 Manage Users
         </button>
-
-        {/* NEW GALLERY MANAGEMENT BUTTON */}
         <button className="btn-gallery" onClick={() => navigate('/admin/gallery')}>
-          📸 Manage Gallery
+          🖼️ Manage Gallery
         </button>
       </div>
 
@@ -98,6 +153,7 @@ export default function AdminDashboard() {
                   <th>Image</th>
                   <th>Title</th>
                   <th>Destination</th>
+                  <th>Duration</th>
                   <th>Price</th>
                   <th>Actions</th>
                 </tr>
@@ -115,19 +171,20 @@ export default function AdminDashboard() {
                     </td>
                     <td className="tour-title">{tour.title}</td>
                     <td>{tour.destination || tour.location || '—'}</td>
+                    <td>{tour.duration || '—'}</td>
                     <td className="price">₹{(tour.price || 0).toLocaleString()}</td>
                     <td className="actions">
                       <button
                         className="btn-edit"
                         onClick={() => navigate(`/admin/edit-tour/${tour._id}`)}
                       >
-                        Edit
+                        ✏️ Edit
                       </button>
                       <button
                         className="btn-delete"
                         onClick={() => handleDelete(tour._id)}
                       >
-                        Delete
+                        🗑️ Delete
                       </button>
                     </td>
                   </tr>
