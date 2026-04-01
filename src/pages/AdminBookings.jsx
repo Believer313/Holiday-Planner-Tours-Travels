@@ -1,5 +1,6 @@
 // src/pages/AdminBookings.jsx
-import React, { useState, useEffect } from 'react';
+import React
+import AdminBackButton from './AdminBackButton';, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminBookings.css';
 
@@ -42,6 +43,7 @@ export default function AdminBookings() {
 
   return (
     <div className="admin-container">
+      <AdminBackButton label="Back to Dashboard" />
       <h1 className="admin-title">Bookings Management</h1>
       <p className="admin-subtitle">Total Bookings: {bookings.length}</p>
 

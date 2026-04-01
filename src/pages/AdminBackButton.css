@@ -1,0 +1,22 @@
+.admin-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #064e3b;
+  border: 1.5px solid #064e3b;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: all 0.25s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.admin-back-btn:hover {
+  background: #064e3b;
+  color: #d4af37;
+  transform: translateX(-3px);
+}

@@ -16,7 +16,6 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  // Protect route — only admin
   useEffect(() => {
     if (user.role !== 'admin') {
       alert('Access Denied. Only Admin can enter.');
@@ -24,34 +23,26 @@ export default function AdminDashboard() {
     }
   }, [user, navigate]);
 
-  // Fetch all data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        
-        // Fetch tours
         const toursRes = await axios.get(`${import.meta.env.VITE_API_URL}/tours`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setTours(toursRes.data);
-        
-        // Fetch bookings
         const bookingsRes = await axios.get(`${import.meta.env.VITE_API_URL}/bookings`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setBookings(bookingsRes.data);
-        
-        // Calculate stats
         const totalRevenue = bookingsRes.data
           .filter(b => b.status === 'confirmed')
           .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
-        
         setStats({
           totalTours: toursRes.data.length,
           totalBookings: bookingsRes.data.length,
           totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id).filter(Boolean))].length,
-          totalRevenue: totalRevenue
+          totalRevenue
         });
       } catch (err) {
         console.error('Failed to load data:', err);
@@ -70,23 +61,119 @@ export default function AdminDashboard() {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTours(tours.filter(t => t._id !== id));
-      setStats({ ...stats, totalTours: stats.totalTours - 1 });
+      setStats(prev => ({ ...prev, totalTours: prev.totalTours - 1 }));
       alert('Tour deleted successfully!');
     } catch (err) {
       alert('Error deleting tour');
     }
   };
 
-  if (loading) {
-    return <div className="loading">Loading Dashboard...</div>;
-  }
+  const handleLogout = () => {
+    if (!window.confirm('Are you sure you want to logout?')) return;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
+  if (loading) return <div className="loading">Loading Dashboard.
+
+clear
+clear
+cat > src/pages/AdminDashboard.jsx << 'EOF'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './AdminDashboard.css';
+
+export default function AdminDashboard() {
+  const [tours, setTours] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({
+    totalTours: 0,
+    totalBookings: 0,
+    totalUsers: 0,
+    totalRevenue: 0
+  });
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  useEffect(() => {
+    if (user.role !== 'admin') {
+      alert('Access Denied. Only Admin can enter.');
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const toursRes = await axios.get(`${import.meta.env.VITE_API_URL}/tours`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setTours(toursRes.data);
+        const bookingsRes = await axios.get(`${import.meta.env.VITE_API_URL}/bookings`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setBookings(bookingsRes.data);
+        const totalRevenue = bookingsRes.data
+          .filter(b => b.status === 'confirmed')
+          .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+        setStats({
+          totalTours: toursRes.data.length,
+          totalBookings: bookingsRes.data.length,
+          totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id).filter(Boolean))].length,
+          totalRevenue
+        });
+      } catch (err) {
+        console.error('Failed to load data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Delete this tour permanently?')) return;
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`${import.meta.env.VITE_API_URL}/tours/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setTours(tours.filter(t => t._id !== id));
+      setStats(prev => ({ ...prev, totalTours: prev.totalTours - 1 }));
+      alert('Tour deleted successfully!');
+    } catch (err) {
+      alert('Error deleting tour');
+    }
+  };
+
+  const handleLogout = () => {
+    if (!window.confirm('Are you sure you want to logout?')) return;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
+  if (loading) return <div className="loading">Loading Dashboard...</div>;
 
   return (
     <div className="admin-container">
+
       {/* HEADER */}
       <div className="admin-header">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome back, <strong>{user.name || 'Admin'}</strong> — You control everything</p>
+        <div className="admin-header-left">
+          <h1>Admin Dashboard</h1>
+          <p>Welcome back, <strong>{user.name || 'Admin'}</strong> — You control everything</p>
+        </div>
+        <div className="admin-header-right">
+          <div className="admin-badge">Admin</div>
+          <button className="btn-logout" onClick={handleLogout}>
+            🔓 Logout
+          </button>
+        </div>
       </div>
 
       {/* STATS CARDS */}
@@ -139,14 +226,11 @@ export default function AdminDashboard() {
 
       {/* TOURS TABLE */}
       <div className="section">
-        <h2 className="section-title">All Tours ({tours.length})</h2>
-
-        {tours.length === 0 ? (
-          <div className="empty-state">
-            <p>No tours yet. Click "Add New Tour" to create your first one!</p>
-          </div>
-        ) : (
-          <div className="table-container">
+        <p className="section-title">All Tours ({tours.length})</p>
+        <div className="table-container">
+          {tours.length === 0 ? (
+            <div className="empty-state">No tours found. Add your first tour!</div>
+          ) : (
             <table className="tours-table">
               <thead>
                 <tr>
@@ -163,36 +247,31 @@ export default function AdminDashboard() {
                   <tr key={tour._id}>
                     <td>
                       <img
-                        src={tour.images?.[0] || tour.imageCover || '/assets/Tiger.png'}
+                        src={tour.images?.[0] || '/placeholder.jpg'}
                         alt={tour.title}
                         className="tour-thumb"
-                        onError={(e) => e.target.src = '/assets/Tiger.png'}
                       />
                     </td>
-                    <td className="tour-title">{tour.title}</td>
-                    <td>{tour.destination || tour.location || '—'}</td>
-                    <td>{tour.duration || '—'}</td>
-                    <td className="price">₹{(tour.price || 0).toLocaleString()}</td>
-                    <td className="actions">
-                      <button
-                        className="btn-edit"
-                        onClick={() => navigate(`/admin/edit-tour/${tour._id}`)}
-                      >
-                        ✏️ Edit
-                      </button>
-                      <button
-                        className="btn-delete"
-                        onClick={() => handleDelete(tour._id)}
-                      >
-                        🗑️ Delete
-                      </button>
+                    <td><span className="tour-title">{tour.title}</span></td>
+                    <td>{tour.destination}</td>
+                    <td>{tour.duration}</td>
+                    <td><span className="price">₹{tour.price?.toLocaleString()}</span></td>
+                    <td>
+                      <div className="actions">
+                        <button className="btn-edit" onClick={() => navigate(`/admin/edit-tour/${tour._id}`)}>
+                          ✏️ Edit
+                        </button>
+                        <button className="btn-delete" onClick={() => handleDelete(tour._id)}>
+                          🗑️ Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
