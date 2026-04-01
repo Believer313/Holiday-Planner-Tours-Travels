@@ -50,7 +50,7 @@ export default function AdminDashboard() {
         setStats({
           totalTours: toursRes.data.length,
           totalBookings: bookingsRes.data.length,
-          totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id))].length,
+          totalUsers: [...new Set(bookingsRes.data.map(b => b.user?._id).filter(Boolean))].length,
           totalRevenue: totalRevenue
         });
       } catch (err) {
@@ -92,28 +92,28 @@ export default function AdminDashboard() {
       {/* STATS CARDS */}
       <div className="admin-stats">
         <div className="stat-card">
-          <div className="stat-icon">📊</div>
+          <div className="stat-icon">🗺️</div>
           <div className="stat-info">
             <h3>{stats.totalTours}</h3>
             <p>Total Tours</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">📅</div>
+          <div className="stat-icon">📋</div>
           <div className="stat-info">
             <h3>{stats.totalBookings}</h3>
             <p>Total Bookings</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">👥</div>
+          <div className="stat-icon">👨‍👩‍👧‍👦</div>
           <div className="stat-info">
-            <h3>{stats.totalUsers}</h3>
+            <h3>{stats.totalUsers || 0}</h3>
             <p>Happy Travelers</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">💰</div>
+          <div className="stat-icon">💵</div>
           <div className="stat-info">
             <h3>₹{stats.totalRevenue.toLocaleString()}</h3>
             <p>Total Revenue</p>
