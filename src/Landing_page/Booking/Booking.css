@@ -285,6 +285,56 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Fix for destination select - text overflow */
+.booking-form-inner select {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.booking-form-inner select option {
+  white-space: normal;
+  word-break: break-word;
+  padding: 8px;
+}
+
+/* Fix for date input calendar icon visibility */
+.booking-form-inner input[type="date"] {
+  color-scheme: dark;
+  position: relative;
+  color: #1a3c34;
+  font-weight: 500;
+}
+
+/* Custom styling for date picker icon - MAKES IT VISIBLE */
+.booking-form-inner input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #d4af37;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  filter: invert(0);
+  opacity: 1;
+}
+
+.booking-form-inner input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background-color: #e9c46a;
+  transform: scale(1.05);
+}
+
+/* For Firefox date picker */
+.booking-form-inner input[type="date"] {
+  color: #1a3c34;
+}
+
+/* Placeholder styling for date input when empty */
+.booking-form-inner input[type="date"]:invalid {
+  color: #6c757d;
+}
+
+.booking-form-inner input[type="date"]:valid {
+  color: #1a3c34;
+}
+
 .booking-form-inner input:focus,
 .booking-form-inner select:focus,
 .booking-form-inner textarea:focus {
@@ -386,6 +436,31 @@ body {
 }
 
 /* ===============================
+   LOADING STATE
+   =============================== */
+.booking-loading-destinations {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(26, 60, 52, 0.9);
+  border-radius: 1rem;
+  color: white;
+}
+
+.booking-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(212, 175, 55, 0.3);
+  border-top-color: #d4af37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===============================
    RESPONSIVE
    =============================== */
 @media (max-width: 1000px) {
@@ -405,6 +480,44 @@ body {
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hoarding { height: 60vh; }
+
+  .booking-container {
+    margin: 24px 12px;
+    padding: 24px 16px;
+  }
+
+  .booking-form { padding: 24px 18px; }
+
+  .booking-trust {
+    gap: 8px;
+  }
+
+  .booking-trust span {
+    font-size: 0.72rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .booking-form-inner select {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+  
+  /* Better visibility for date picker on mobile */
+  .booking-form-inner input[type="date"] {
+    font-size: 0.9rem;
+  }
+  
+  .booking-form-inner input[type="date"]::-webkit-calendar-picker-indicator {
+    padding: 6px;
   }
 }
 

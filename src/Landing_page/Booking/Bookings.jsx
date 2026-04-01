@@ -71,7 +71,7 @@ const Bookings = () => {
       if (response.ok) {
         setBookingId(data.bookingId || Date.now().toString());
         setMessage(`✅ Booking confirmed for ${formData.name}!`);
-        setShowPayment(true);  // ← THIS SHOWS THE PAYMENT BUTTON
+        setShowPayment(true);
         setBookingSuccess(true);
       } else {
         setError(data.message || "Something went wrong. Please try again.");
@@ -164,7 +164,9 @@ const Bookings = () => {
             <select name="destination" value={formData.destination} onChange={handleChange} required>
               <option value="">Select destination</option>
               {destinations.map((dest, index) => (
-                <option key={index} value={dest}>{dest}</option>
+                <option key={index} value={dest} title={dest}>
+                  {dest.length > 35 ? dest.substring(0, 32) + '...' : dest}
+                </option>
               ))}
             </select>
           </div>
