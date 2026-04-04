@@ -41,7 +41,7 @@ export const initiatePayment = async (amount, bookingId, userDetails) => {
     }
 
     const options = {
-      key: "rzp_test_YNjVZt3yQkYgPx",
+      key: "rzp_test_SZGNEW7c9AVyLl",
       amount: amount * 100,
       currency: "INR",
       name: "Holiday Planner Tours and Travels",
