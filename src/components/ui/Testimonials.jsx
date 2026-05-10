@@ -14,7 +14,7 @@ const testimonials = [
   },
   {
     id: 2,
-    name: "Fatima Begum",
+    name: "Chandan Roy",
     location: "Hooghly, West Bengal",
     tour: "Darjeeling Trip",
     rating: 5,
@@ -44,7 +44,7 @@ const testimonials = [
   },
   {
     id: 5,
-    name: "Rubina Khatun",
+    name: "Bijan Dey",
     location: "Nadia, West Bengal",
     tour: "Sunderban Expedition",
     rating: 5,
@@ -62,6 +62,16 @@ const testimonials = [
     avatar: "AK",
     color: "#064e3b",
   },
+  {
+    id: 6,
+    name: "Mithun Debnath",
+    location: "Dankuni, West Bengal",
+    tour: "Darjeeling Trip",
+    rating: 5,
+    review: " The sunrise from Tiger Hill was something I will never forget. Booking was simple, price was very reasonable and the team was always available on WhatsApp for any questions.",
+    avatar: "MD",
+    color: "#064e3e",
+  }
 ];
 
 const StarRating = ({ rating }) => (
