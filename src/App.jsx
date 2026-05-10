@@ -37,7 +37,7 @@ const WhatsAppButton = () => (
       position: 'fixed',
       bottom: '28px',
       right: '24px',
-      zIndex: 9999,
+      zIndex: 999999,
       width: "64px",
       height: "64px",
       borderRadius: '50%',
