@@ -22,6 +22,7 @@ import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import FactsAndFigures from "./components/ui/FactsAndFigure";
 import Testimonials from "./components/ui/Testimonials";
+import TawkTo from "./components/ui/TawkTo";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from "./pages/NotFound";
 
@@ -90,6 +91,7 @@ const Layout = ({ children }) => {
   return (
     <>
       {!hideLayout && <Navbar />}
+      <TawkTo />
       {children}
       {!hideLayout && (
         <>
