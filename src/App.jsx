@@ -1,4 +1,4 @@
-// src/App.jsx — COMPLETELY FIXED VERSION (Tawk.to LEFT, WhatsApp RIGHT)
+// src/App.jsx — COMPLETELY FIXED VERSION 
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import React from "react";
 import HomePage from "./Landing_page/Home/HomePage";

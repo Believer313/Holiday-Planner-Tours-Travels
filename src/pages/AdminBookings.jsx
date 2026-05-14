@@ -20,6 +20,7 @@ export default function AdminBookings() {
       });
       setBookings(res.data);
     } catch (err) {
+      console.error(err);
       alert('Error fetching bookings');
     } finally {
       setLoading(false);
@@ -33,7 +34,7 @@ export default function AdminBookings() {
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchBookings();
+      fetchBookings(); // Refresh list
     } catch (err) {
       alert('Error updating status');
     }
@@ -52,11 +53,14 @@ export default function AdminBookings() {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Customer</th>
-              <th>Tour</th>
+              <th>Customer Name</th>
+              <th>Email</th>
               <th>Phone</th>
+              <th>Destination</th>
+              <th>Travelers</th>
               <th>Amount</th>
-              <th>Status</th>
+              <th>Payment Status</th>
+              <th>Booking Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -64,15 +68,27 @@ export default function AdminBookings() {
             {bookings.map(b => (
               <tr key={b._id}>
                 <td>{new Date(b.createdAt).toLocaleDateString()}</td>
-                <td>{b.user?.name || 'Guest'}<br/><small>{b.user?.email}</small></td>
-                <td>{b.tour?.title || 'N/A'}</td>
+                <td><strong>{b.name}</strong></td>
+                <td>{b.email}</td>
                 <td>{b.phone}</td>
-                <td className="price">₹{b.totalPrice?.toLocaleString()}</td>
+                <td>{b.destination}</td>
+                <td>{b.travelers || b.totalPersons || 1}</td>
+                <td className="price">₹{b.amount?.toLocaleString() || 0}</td>
+                
+                {/* Payment Status */}
+                <td>
+                  <span className={`status ${b.paymentStatus || 'pending'}`}>
+                    {b.paymentStatus ? b.paymentStatus.toUpperCase() : 'PENDING'}
+                  </span>
+                </td>
+
+                {/* Booking Status */}
                 <td>
                   <span className={`status ${b.status}`}>
                     {b.status || 'pending'}
                   </span>
                 </td>
+
                 <td>
                   {b.status !== 'confirmed' && (
                     <button className="btn-confirm" onClick={() => updateStatus(b._id, 'confirmed')}>
