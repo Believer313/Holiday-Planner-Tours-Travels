@@ -7,7 +7,7 @@ export const loadRazorpayScript = () => {
       resolve(true);
       return;
     }
-
+    
     console.log("Loading Razorpay script...");
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
@@ -23,72 +23,71 @@ export const loadRazorpayScript = () => {
   });
 };
 
+// ✅ SMART RAZORPAY - Works on BOTH Local + Live Website
 export const initiatePayment = async (amount, bookingId, userDetails) => {
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const appMode = import.meta.env.VITE_APP_MODE || 'development';
 
+  console.log("=== INITIATING PAYMENT ===");
+  console.log("API URL:", apiUrl);
+  console.log("App Mode:", appMode);
+
+  // ==================== LIVE WEBSITE (Production) ====================
   if (appMode === 'production') {
-    alert(`Thank you!\n\nPayment is in DEMO mode.\nPlease contact: +91 99077 40169`);
+    const message = `Thank you for your interest in Holiday Planner Tours & Travels! 🌟\n\n` +
+                    `💳 Payment is currently running in DEMO mode.\n\n` +
+                    `For real bookings, please contact us:\n` +
+                    `📞 +91 99077 40169\n` +
+                    `✉️ nazmussayadatmona@gmail.com`;
+    alert(message);
     return false;
   }
 
-  console.log("=== INITIATING TEST PAYMENT ===");
-
+  // ==================== LOCAL / DEVELOPMENT MODE ====================
   try {
-    const response = await fetch('http://localhost:5000/api/payment/create-order', {
+    const response = await fetch(`${apiUrl}/payment/create-order`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: Number(amount), receipt: `booking_${bookingId}` })
+      body: JSON.stringify({
+        amount: Number(amount),
+        receipt: `booking_${bookingId}`
+      })
     });
 
     const data = await response.json();
 
     if (!data.success) {
-      alert("Failed to create order");
+      alert(data.message || "Failed to create payment order");
       return false;
     }
 
     const { order } = data;
-    await loadRazorpayScript();
+
+    const isLoaded = await loadRazorpayScript();
+    if (!isLoaded) {
+      alert('Failed to load Razorpay. Please refresh and try again.');
+      return false;
+    }
 
     const options = {
-      key: data.key_id || "rzp_test_SZGNEW7c9AVyLl",
+      key: data.key_id || import.meta.env.VITE_RAZORPAY_TEST_KEY || "rzp_test_SZGNEW7c9AVyLl",
       amount: order.amount,
-      currency: "INR",
+      currency: order.currency,
       name: "Holiday Planner Tours and Travels",
       description: `Booking ID: ${bookingId} (TEST)`,
       order_id: order.id,
+      image: "/favicon.ico",
 
-      // ✅ FIX 1: Correct way to control which methods appear in the checkout UI
-      config: {
-        display: {
-          blocks: {
-            upi: {
-              name: "Pay via UPI",
-              instruments: [
-                { method: "upi" }
-              ]
-            },
-            card: {
-              name: "Pay via Card",
-              instruments: [
-                { method: "card" }
-              ]
-            },
-            other: {
-              name: "Other Methods",
-              instruments: [
-                { method: "netbanking" },
-                { method: "wallet" }
-              ]
-            }
-          },
-          sequence: ["block.upi", "block.card", "block.other"], // UPI shown first
-          preferences: { show_default_blocks: false }
-        }
+      method: {
+        upi: true,
+        card: true,
+        netbanking: true,
+        wallet: true
       },
 
       handler: function (response) {
-        alert(`✅ TEST PAYMENT SUCCESSFUL!\nPayment ID: ${response.razorpay_payment_id}`);
+        console.log("Payment Successful:", response);
+        alert(`✅ TEST PAYMENT SUCCESSFUL!\n\nPayment ID: ${response.razorpay_payment_id}`);
       },
 
       prefill: {
@@ -97,14 +96,23 @@ export const initiatePayment = async (amount, bookingId, userDetails) => {
         contact: userDetails?.phone || ""
       },
 
-      theme: { color: "#064e3b" }
+      notes: { bookingId },
+      theme: { color: "#064e3b" },
+
+      modal: {
+        ondismiss: function() {
+          console.log("Payment modal closed");
+        }
+      }
     };
 
     const razorpay = new window.Razorpay(options);
     razorpay.open();
-
+    
+    return true;
   } catch (error) {
-    console.error(error);
+    console.error("Payment error:", error);
     alert("Payment failed: " + error.message);
+    return false;
   }
 };
